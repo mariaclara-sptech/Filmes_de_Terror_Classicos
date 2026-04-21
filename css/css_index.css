@@ -1,82 +1,174 @@
-
 body {
+    margin: 0;
     background-color: black;
     color: white;
-    margin: 0;
     text-align: center;
 }
 
+.menu {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 60px;
+    background: linear-gradient(to bottom, black, transparent);
+}
 
-.nome-canto {
+.logo {
     font-family: 'Cinzel', serif;
     color: #8b0000;
-    font-weight: bold;
 }
 
+.botoes span {
+    margin-left: 25px;
+    color: #aaa;
+    cursor: pointer;
+}
 
+.botoes span:hover {
+    color: white;
+}
 
-.frase-pequena {
+.banner {
+    padding: 150px 20px 120px 20px;
+
+    background-image:
+    linear-gradient(to bottom, black 0%, rgba(0,0,0,0) 60%, black 100%),
+    url("/Filmes_de_Terror_Classicos/img/fundo2.jpeg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+.frase {
+    font-family: 'Playfair Display', serif;
     font-style: italic;
-    font-size: 18px;
-    margin-bottom: 40px;
     color: #ccc;
+    font-size: 18px;
 }
 
-
-
-.risquinho {
-    width: 80px;
-    height: 3px;
-    background-color: white;
-    margin: 0;
+.frase2 {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #aaa;
+    font-size: 16px;
 }
 
-.autor {
-    font-size: 14px;
+.centro h1 {
+    font-family: 'Cinzel', serif;
+    font-size: 110px;
+    margin: 10px 0;
+}
+
+.sub {
+    letter-spacing: 5px;
     color: #8b0000;
+    font-size: 13px;
 }
 
+.linha {
+    width: 70px;
+    height: 2px;
+    background: white;
+    margin: auto;
+}
 
-.lista-cards {
+.conteudo {
+    padding: 100px 20px;
+}
+
+.sobre h2 {
+    font-family: 'Cinzel', serif;
+}
+
+.texto {
+    width: 600px;
+    margin: auto;
+    color: #bbb;
+}
+
+.cards {
     display: flex;
     justify-content: center;
     gap: 30px;
-    flex-wrap: wrap;
+    margin-top: 60px;
 }
 
-.cartao {
-    border: 1px solid #222;
-    padding: 30px;
+.card {
     width: 200px;
-    background: rgba(10, 10, 10, 0.8);
-}
+    height: 220px;
 
-.cartao h4 {
-    color: #8b0000;
-    margin-bottom: 15px;
-}
-
-
-.botao-grande {
-    border: 1px solid white;
+    border: 1px solid #8b0000;
+    background: transparent;
     color: white;
-    padding: 20px 50px;
-    font-size: 18px;
+
+    padding: 25px 15px;
+
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    border-color: red;
+}
+
+.card img {
+    width: 45px;
+    margin-bottom: 10px;
+}
+
+.card h3 {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+}
+
+.card p {
+    font-size: 13px;
+    color: #aaa;
+    text-align: center;
+    line-height: 1.4;
+}
+
+.final {
+    margin-top: 100px;
+}
+
+.final button {
+    margin-top: 20px;
+    padding: 15px 50px;
+    background: transparent;
+    border: 1px solid #8b0000;
+    color: white;
     font-family: 'Cinzel', serif;
 }
 
-
-.botao-menu {
-    background: transparent;
-    border: none;
-    color: #888;
-    font-family: 'Special Elite', serif;
-    margin-left: 20px;
-    font-size: 14px;
+.final button:hover {
+    background: #8b0000;
 }
 
+.rodape {
+    margin-top: 120px;
+    padding: 120px 20px 60px 20px;
+    background: linear-gradient(to bottom, black, #8b0000);
+}
 
-.creditos {
-    font-size: 11px;
-    color: #777;;
+.titulo-rodape {
+    font-family: 'Cinzel', serif;
+    font-size: 40px;
+}
+
+.frase-rodape {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #ccc;
+    margin-bottom: 40px;
+}
+
+.info-rodape {
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: 2px;
 }
