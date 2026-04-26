@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Frights | Cadastro</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="/public/css/cadastro.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+</head>
+
+<body onload="listar()">
+
+<div class="menu">
+    <div class="logo">VINTAGE FRIGHTS</div>
+
+    <div class="botoes">
+        <a href="/public/index.html"><span>Início</span></a>
+        <span>Quiz</span>
+        <span>Filmes</span>
+        <span>Linha do Tempo</span>
+    </div>
+</div>
+
+<div class="login">
+
+    <div class="card">
+
+        <img src="/public/assets/img/logo.png" alt="">
+
+        <div class="campo">
+            <span>NOME COMPLETO</span>
+            <input id="nome_input" type="text">
+        </div>
+
+        <div class="campo">
+            <span>E-MAIL</span>
+            <input id="email_input" type="text">
+        </div>
+
+        <div class="campo">
+            <span>CÓDIGO DE ATIVAÇÃO</span>
+            <input id="codigo_input" type="text">
+        </div>
+
+        <div class="campo">
+            <span>SENHA</span>
+            <input id="senha_input" type="password">
+        </div>
+
+        <div class="campo">
+            <span>CONFIRME A SENHA</span>
+            <input id="confirmacao_senha_input" type="password">
+        </div>
+
+        <button class="botao" onclick="cadastrar()">Cadastrar</button>
+
+        <p class="cadastro">
+            JÁ POSSUI CONTA?
+            <a href="/public/login.html">
+                <span>LOGIN</span>
+            </a>
+        </p>
+
+    </div>
+
+    <div id="div_aguardar" class="loading-div">
+        <img src="./assets/circle-loading.gif">
+    </div>
+
+</div>
+<div class="rodape">
+    <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
+
+    <p class="frase-rodape">
+        “O medo nunca envelhece… ele evolui.”
+    </p>
+
+    <div class="info-rodape">
+        <p>DIREÇÃO: MARIA CLARA | ANO: 2026</p>
+        <p>VINTAGE FRIGHTS © PROJETO INDIVIDUAL SPTECH</p>
+    </div>
+</div>
+</body>
+
+<script>
+let listaEmpresasCadastradas = [];
+
+function cadastrar() {
+    var nomeVar = nome_input.value;
+    var emailVar = email_input.value;
+    var senhaVar = senha_input.value;
+    var confirmacaoSenhaVar = confirmacao_senha_input.value;
+    var codigoVar = codigo_input.value;
+    var idEmpresaVincular;
+
+    if (
+        nomeVar == "" ||
+        emailVar == "" ||
+        senhaVar == "" ||
+        confirmacaoSenhaVar == "" ||
+        codigoVar == ""
+    ) {
+        alert("Preencha todos os campos");
+        return false;
+    }
+
+    for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+        if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+            idEmpresaVincular = listaEmpresasCadastradas[i].id;
+            break;
+        } else {
+            alert("Código de ativação inválido");
+        }
+    }
+
+    fetch("/usuarios/cadastrar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            nomeServer: nomeVar,
+            emailServer: emailVar,
+            senhaServer: senhaVar,
+            idEmpresaVincularServer: idEmpresaVincular
+        }),
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            alert("Cadastro realizado com sucesso!");
+            window.location = "login.html";
+        } else {
+            throw "Erro ao cadastrar";
+        }
+    })
+    .catch(function (erro) {
+        console.log(erro);
+    });
+
+    return false;
+}
+
+function listar() {
+    fetch("/empresas/listar")
+    .then(res => res.json())
+    .then(empresas => {
+        listaEmpresasCadastradas = empresas;
+    })
+    .catch(err => console.log(err));
+}
+</script>
+
+</html>

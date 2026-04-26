@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Frights | Login</title>
+
+    <script src="./js/sessao.js"></script>
+
+    <link rel="stylesheet" href="/public/css/login.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="menu">
+    <div class="logo">VINTAGE FRIGHTS</div>
+
+    <div class="botoes">
+        <a href="/public/index.html">
+        <span>Início</span>
+        </a>
+        <span>Quiz</span>
+        <span>Filmes</span>
+        <span>Linha do Tempo</span>
+    </div>
+</div>
+
+<div class="login">
+
+    <div class="card">
+
+        <img src="/public/assets/img/logo.png" alt="">
+
+        <div class="campo">
+            <span>E-MAIL</span>
+            <input id="email_input" type="text">
+        </div>
+
+        <div class="campo">
+            <span>SENHA</span>
+            <input id="senha_input" type="password">
+        </div>
+            
+        <button class="botao" onclick="entrar()">Entrar</button>
+           
+        <p class="cadastro"> NÃO POSSUI CONTA?
+            <a href="/public/cadastro.html">
+                <span>CADASTRE-SE</span>
+            </a>
+        </p>
+
+    </div>
+
+
+    <div id="div_aguardar" class="loading-div">
+        <img src="./assets/circle-loading.gif">
+    </div>
+
+</div>
+
+
+<div class="rodape">
+    <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
+
+    <p class="frase-rodape">
+        “O medo nunca envelhece… ele evolui.”
+    </p>
+
+    <div class="info-rodape">
+        <p>DIREÇÃO: MARIA CLARA | ANO: 2026</p>
+        <p>VINTAGE FRIGHTS © PROJETO INDIVIDUAL SPTECH</p>
+    </div>
+</div>
+
+</body>
+
+<script>
+function entrar() {
+    let emailVar = email_input.value.trim();
+    let senhaVar = senha_input.value.trim();
+
+
+    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    let regexSenha = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+
+
+
+    if (emailVar == "" || senhaVar == "") {
+        alert("Preencha todos os campos");
+        return false;
+    }
+
+    if (!regexEmail.test(emailVar)) {
+        alert("E-mail inválido. Ex: exemplo@email.com");
+        return false;
+    }
+
+    if (emailVar.includes(" ")) {
+        alert("O e-mail não pode conter espaços");
+        return false;
+    }
+
+    if (!regexSenha.test(senhaVar)) {
+        alert("A senha deve ter no mínimo 6 caracteres, com letras e números");
+        return false;
+    }
+
+
+    fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailServer: emailVar,
+            senhaServer: senhaVar
+        })
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error("Email ou senha inválidos");
+        }
+        return res.json();
+    })
+    .then(json => {
+        sessionStorage.EMAIL_USUARIO = json.email;
+        window.location = "./dashboard/cards.html";
+    })
+    .catch(err => {
+        alert(err.message);
+    });
+}
+</script>
+
+</html>
