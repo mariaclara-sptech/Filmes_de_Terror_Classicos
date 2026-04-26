@@ -37,7 +37,7 @@ body {
 
     background-image:
     linear-gradient(to bottom, black 0%, rgba(0,0,0,0) 60%, black 100%),
-    url("/public/assets/img/fundo2.jpeg");
+    url("/Meu_site/public/assets/img/fundo2.jpeg");
 
     background-size: cover;
     background-position: center;
