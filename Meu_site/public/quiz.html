@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Vintage Frights | Quiz</title>
+
+<link rel="stylesheet" href="/Meu_site/public/css/quiz.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="menu">
+    <div class="logo">VINTAGE FRIGHTS</div>
+
+    <div class="botoes">
+      <a href="/Meu_site/public/index.html">
+        <span>Início</span>
+        </a>
+        <a href="/Meu_site/public/quiz.html">
+        <span>Quiz</span>
+        </a>
+        <span>Filmes</span>
+        <span>Linha do Tempo</span>
+    </div>
+</div>
+
+<div class="quiz-container">
+    <div class="quiz-box">
+
+
+        <div id="pergunta"></div>
+<div id="descricao"></div>
+<div id="opcoes"></div>
+
+
+<button id="btnProx" onclick="proxima()">PRÓXIMA</button>
+<button id="btnReiniciar" onclick="reiniciar()" style="display:none;">REINICIAR</button>
+
+        <div id="resultado" class="resultado"></div>
+
+    </div>
+</div>
+<div class="rodape">
+    <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
+
+    <p class="frase-rodape">
+        “O medo nunca envelhece… ele evolui.”
+    </p>
+
+    <div class="info-rodape">
+        <p>DIREÇÃO: MARIA CLARA | ANO: 2026</p>
+        <p>VINTAGE FRIGHTS © PROJETO INDIVIDUAL SPTECH</p>
+    </div>
+</div>
+
+<script>
+
+const perguntas = [
+
+{
+pergunta: "Você está sozinho(a) em casa à noite. O telefone toca. Uma voz calma começa a fazer perguntas aparentemente inofensivas sobre filmes de terror… até que ela revela detalhes da sua rotina que ninguém deveria saber.<br> A voz diz:<br>Você gosta de jogos? Porque eu adoro jogos… principalmente quando as regras não são tão claras.",
+descricao: "<br>Você percebe que alguém pode estar te observando de fora da casa. <br>O que você faz?",
+opcoes: [
+"Entra no jogo, tentando ganhar tempo e descobrir quem é",
+"Desliga imediatamente e vai verificar portas e janelas",
+"Liga para a polícia enquanto permanece em silêncio",
+"Sai da casa discretamente pelos fundos sem fazer barulho"
+],
+pontos: [1,2,4,3]
+},
+
+{
+pergunta: "Você está em uma casa onde algo parece… errado. As portas estão abertas, luzes piscam ocasionalmente, e há uma sensação constante de que alguém está observando.<br>Você encontra uma faca na cozinha e percebe que não tem sinal de celular.",
+descricao: "<br>Ao subir as escadas, você ouve passos lentos no andar de cima.<br>Qual sua decisão?",
+opcoes: [
+"Subir silenciosamente e tentar surpreender quem estiver lá",
+"Sair da casa imediatamente pela porta da frente",
+"Se esconder e observar antes de agir",
+"Se armar e fazer barulho proposital para atrair a pessoa"
+],
+pontos: [1,4,3,2]
+},
+
+{
+pergunta: "Você e seus amigos estão perdidos em uma floresta. A bússola não funciona, o mapa parece errado e vocês começam a encontrar símbolos estranhos pendurados nas árvores.<br>Durante a noite, sons de galhos quebrando e passos cercam o acampamento.",
+descricao: "<br>De manhã, um dos seus amigos desapareceu.<br>O grupo entra em pânico.<br>Você:",
+opcoes: [
+"Tenta manter o grupo unido e continuar andando",
+"Decide voltar pelo caminho que acredita ter vindo",
+"Analisa o ambiente antes de qualquer movimento",
+"Se separa do grupo para procurar ajuda mais rápido"
+],
+pontos: [2,1,4,0]
+},
+
+{
+pergunta: "Você percebe que alguém está eliminando pessoas ao seu redor, uma por uma.<br>Você vê ao longe uma figura alta, imóvel, observando.<br>Não há polícia, não há ajuda — apenas você e o ambiente ao redor.",
+descricao: "<br>Você tem acesso a: <br>Uma faca<br>Uma lanterna<br>Um carro (sem chave à vista)",
+opcoes: [
+"Tenta fugir a pé imediatamente",
+"Se esconde e observa o padrão do assassino",
+"Procura a chave do carro rapidamente",
+"Tenta confrontar o assassino com a faca"
+],
+pontos: [2,4,3,0]
+},
+
+{
+pergunta: "Você está em uma casa onde objetos se movem sozinhos, portas batem e vozes sussurram.<br>Você descobre que existe uma entidade ligada a um objeto específico da casa.",
+descricao: "<br>À noite, ela se manifesta com mais força.<br>Você:",
+opcoes: [
+"Sai da casa imediatamente",
+"Procura o objeto para destruí-lo",
+"Permanece e tenta entender o padrão da entidade",
+"Dorme e ignora para manter a calma"
+],
+pontos: [0,4,1,3]
+},
+{
+pergunta: "Você conseguiu sobreviver até o fim.<br>O assassino está aparentemente derrotado… no chão.",
+descricao: "<br>O que você faz?",
+opcoes: [
+"Vai embora imediatamente",
+"Verifica se ele está realmente morto",
+"Ataca novamente para garantir",
+"Fica parado observando por alguns segundos"
+],
+pontos: [3,4,2,0]
+}
+
+];
+
+let atual = 0
+let pontuacao = 0
+
+function carregar() {
+
+    let questao = perguntas[atual]
+
+    pergunta.innerHTML = questao.pergunta
+    descricao.innerHTML = questao.descricao
+
+    opcoes.innerHTML = `
+    <input type="radio" name="opt"> ${questao.opcoes[0]} <br>
+    <input type="radio" name="opt"> ${questao.opcoes[1]} <br>
+    <input type="radio" name="opt"> ${questao.opcoes[2]} <br>
+    <input type="radio" name="opt"> ${questao.opcoes[3]} <br>
+    `
+}
+
+function proxima() {
+
+    let opcoesRadio = document.getElementsByName("opt")
+    let escolhido = -1
+
+    for(let i = 0; i < opcoesRadio.length; i++){
+        if(opcoesRadio[i].checked){
+            escolhido = i
+        }
+    }
+
+    if(escolhido == -1){
+        alert("Escolha uma opção!")
+        return
+    }
+
+    pontuacao += perguntas[atual].pontos[escolhido]
+
+    atual++
+
+    if(atual < perguntas.length){
+        carregar()
+    } else {
+        finalizar()
+    }
+}
+
+function reiniciar(){
+    atual = 0
+    pontuacao = 0
+
+    resultado.innerHTML = ""
+
+    btnReiniciar.style.display = "none"
+    btnProx.style.display = "inline-block"
+
+    carregar()
+}
+
+function finalizar(){
+
+    let max = perguntas.length * 4
+    let porcentagem = (pontuacao / max) * 100
+
+    resultado.innerHTML = "Pontuação: " + pontuacao + "<br>"
+    resultado.innerHTML += porcentagem.toFixed(0) + "%<br><br>"
+
+    if(pontuacao <= 8){
+        resultado.innerHTML += "Você morreria rápido"
+    } 
+    else if(pontuacao <= 16){
+        resultado.innerHTML += "Sobrevive um pouco"
+    } 
+    else if(pontuacao <= 24){
+        resultado.innerHTML += "Protagonista"
+    } 
+    else {
+        resultado.innerHTML += "Final boss"
+    }
+
+    opcoes.innerHTML = ""
+    pergunta.innerHTML = ""
+    descricao.innerHTML = ""
+
+    btnProx.style.display = "none"
+    btnReiniciar.style.display = "inline-block"
+}
+carregar()
+
+</script>
+
+</body>
+</html>

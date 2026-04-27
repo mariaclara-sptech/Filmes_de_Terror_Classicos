@@ -1,0 +1,149 @@
+
+body {
+
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    color: white;
+    text-align: center;
+    background-image:
+    linear-gradient(to bottom, black 0%, rgba(0,0,0,0) 60%, black 100%),
+    url("/Meu_site/public/assets/img/fundo2.jpeg");
+
+    background-size: cover;
+    background-position: center;
+}
+
+
+
+
+.menu {
+    position: fixed;
+    top: 0;
+    width:92%; 
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 60px;
+    background: linear-gradient(to bottom, black, transparent);
+    
+}
+
+.logo {
+    font-family: 'Cinzel', serif;
+    color: #8b0000;
+}
+
+.botoes span {
+    margin-left: 25px;
+    color: #aaa;
+    cursor: pointer;
+}
+
+.botoes span:hover {
+    color: white;
+}
+
+
+
+
+.quiz-container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px; 
+}
+
+.quiz-box {
+    width: 800px;
+    padding: 40px;
+
+    background: rgba(0,0,0,0.75);
+    border: 1px solid #8b0000;
+
+}
+
+.pergunta {
+    font-family: 'Cinzel', serif;
+    font-size: 22px;
+}
+
+.descricao {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.opcao {
+    border: 1px solid #8b0000;
+    padding: 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.opcao:hover {
+    background: #8b0000;
+}
+
+.correta {
+    background: green;
+}
+
+.errada {
+    background: darkred;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+
+    background: transparent;
+    border: 1px solid #8b0000;
+
+    color: white;
+    font-family: 'Cinzel', serif;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background: #8b0000;
+}
+
+.resultado {
+    margin-top: 20px;
+    font-size: 20px;
+}
+.rodape {
+    padding: 100px 20px 60px;
+    text-align: center;
+
+    background: linear-gradient(
+        to top,
+        rgba(200, 0, 0, 0.95) 0%,
+        rgba(135, 0, 0, 0.7) 40%,
+        rgba(69, 0, 0, 0.7) 65%,
+        rgba(20, 0, 0, 0.7) 85%,
+        rgba(198, 0, 0, 0) 100%
+    );
+}
+
+.titulo-rodape {
+    font-family: 'Cinzel', serif;
+    font-size: 40px;
+}
+
+.frase-rodape {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #ccc;
+    margin: 20px 0 40px;
+}
+
+.info-rodape {
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: 2px;
+}
+.loading-div {
+    display: none;
+}
