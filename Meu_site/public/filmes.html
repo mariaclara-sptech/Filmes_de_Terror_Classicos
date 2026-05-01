@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Frights | Filmes</title>
+
+    <link rel="stylesheet" href="./css/votacao.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="menu">
+        <div class="logo">VINTAGE FRIGHTS</div>
+
+        <div class="botoes">
+            <a href="index.html"><span>Início</span></a>
+            <a href="quiz.html"><span>Quiz</span></a>
+            <a href="#"><span>Filmes</span></a>
+            <a href="linha.html"><span>Linha do Tempo</span></a>
+        </div>
+    </div>
+
+    <h1>Quais notas você daria para esses filmes?</h1>
+
+    <div class="grid">
+
+        <!-- ALIENS -->
+        <div class="filme">
+            <img src="assets/img/filme.aliens.jpg">
+            <div class="estrelas aliens">
+                <span onclick="votarAliens(1)">★</span>
+                <span onclick="votarAliens(2)">★</span>
+                <span onclick="votarAliens(3)">★</span>
+                <span onclick="votarAliens(4)">★</span>
+                <span onclick="votarAliens(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('aliens')">CONTINUE EXPLORANDO</button>
+        </div>
+
+        <!-- CHUCK -->
+        <div class="filme">
+            <img src="assets/img/filme.chuck.jpg">
+            <div class="estrelas chuck">
+                <span onclick="votarChuck(1)">★</span>
+                <span onclick="votarChuck(2)">★</span>
+                <span onclick="votarChuck(3)">★</span>
+                <span onclick="votarChuck(4)">★</span>
+                <span onclick="votarChuck(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('chuck')">CONTINUE EXPLORANDO</button>
+        </div>
+
+        <!-- DONNIE -->
+        <div class="filme">
+            <img src="assets/img/filme.donnie.jpg">
+            <div class="estrelas donnie">
+                <span onclick="votarDonnie(1)">★</span>
+                <span onclick="votarDonnie(2)">★</span>
+                <span onclick="votarDonnie(3)">★</span>
+                <span onclick="votarDonnie(4)">★</span>
+                <span onclick="votarDonnie(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('donnie')">CONTINUE EXPLORANDO</button>
+        </div>
+
+        <!-- EXORCISTA -->
+        <div class="filme">
+            <img src="assets/img/filme.exorcista.jpg">
+            <div class="estrelas exorcista">
+                <span onclick="votarExorcista(1)">★</span>
+                <span onclick="votarExorcista(2)">★</span>
+                <span onclick="votarExorcista(3)">★</span>
+                <span onclick="votarExorcista(4)">★</span>
+                <span onclick="votarExorcista(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('exorcista')">CONTINUE EXPLORANDO</button>
+        </div>
+
+        <!-- GREMLINS -->
+        <div class="filme">
+            <img src="assets/img/filme.grenlis.jpg">
+            <div class="estrelas grenlis">
+                <span onclick="votarGrenlis(1)">★</span>
+                <span onclick="votarGrenlis(2)">★</span>
+                <span onclick="votarGrenlis(3)">★</span>
+                <span onclick="votarGrenlis(4)">★</span>
+                <span onclick="votarGrenlis(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('grenlis')">CONTINUE EXPLORANDO</button>
+        </div>
+
+        <!-- HALLOWEEN -->
+        <div class="filme">
+            <img src="assets/img/filme.halloween.jpg">
+            <div class="estrelas halloween">
+                <span onclick="votarHalloween(1)">★</span>
+                <span onclick="votarHalloween(2)">★</span>
+                <span onclick="votarHalloween(3)">★</span>
+                <span onclick="votarHalloween(4)">★</span>
+                <span onclick="votarHalloween(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('halloween')">CONTINUE EXPLORANDO</button>
+        </div>
+
+        <!-- HELLRAISER -->
+        <div class="filme">
+            <img src="assets/img/filme.hellraiser.jpg">
+            <div class="estrelas hellraiser">
+                <span onclick="votarHellraiser(1)">★</span>
+                <span onclick="votarHellraiser(2)">★</span>
+                <span onclick="votarHellraiser(3)">★</span>
+                <span onclick="votarHellraiser(4)">★</span>
+                <span onclick="votarHellraiser(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('hellraiser')">CONTINUE EXPLORANDO</button>
+        </div>
+
+        <!-- SCREAM -->
+        <div class="filme">
+            <img src="assets/img/filme.scream.jpg">
+            <div class="estrelas scream">
+                <span onclick="votarScream(1)">★</span>
+                <span onclick="votarScream(2)">★</span>
+                <span onclick="votarScream(3)">★</span>
+                <span onclick="votarScream(4)">★</span>
+                <span onclick="votarScream(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('scream')">CONTINUE EXPLORANDO</button>
+        </div>
+
+        <!-- TUBARAO -->
+        <div class="filme">
+            <img src="assets/img/filme.tubarao.jpg">
+            <div class="estrelas tubarao">
+                <span onclick="votarTubarao(1)">★</span>
+                <span onclick="votarTubarao(2)">★</span>
+                <span onclick="votarTubarao(3)">★</span>
+                <span onclick="votarTubarao(4)">★</span>
+                <span onclick="votarTubarao(5)">★</span>
+            </div>
+            <button onclick="irDetalhes('tubarao')">CONTINUE EXPLORANDO</button>
+        </div>
+
+    </div>
+
+    <button class="botao-registrar" onclick="registrar()">REGISTRAR</button>
+
+    <div class="rodape">
+        <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
+
+        <p class="frase-rodape">
+            “O medo nunca envelhece… ele evolui.”
+        </p>
+
+        <div class="info-rodape">
+            <p>DIREÇÃO: MARIA CLARA | ANO: 2026</p>
+            <p>VINTAGE FRIGHTS © PROJETO INDIVIDUAL SPTECH</p>
+        </div>
+    </div>
+
+    <script>
+
+        let notaAliens = 0, notaChuck = 0, notaDonnie = 0, notaExorcista = 0, notaGrenlis = 0, notaHalloween = 0, notaHellraiser = 0, notaScream = 0, notaTubarao = 0;
+
+        function pintar(classe, nota) {
+            let selecionar = document.querySelectorAll("." + classe + " span");
+            for (let i = 0; i < selecionar.length; i++) 
+            { selecionar[i].className = ""; }
+            for (let i = 0; i < nota; i++)
+           { selecionar[i].className = "ativa"; }
+        }
+
+        function votarAliens(vnota) { notaAliens = vnota; pintar("aliens", vnota); }
+        function votarChuck(vnota) { notaChuck = vnota; pintar("chuck", vnota); }
+        function votarDonnie(vnota) { notaDonnie = vnota; pintar("donnie", vnota); }
+        function votarExorcista(vnota) { notaExorcista = vnota; pintar("exorcista", vnota); }
+        function votarGrenlis(vnota) { notaGrenlis = vnota; pintar("grenlis", vnota); }
+        function votarHalloween(vnota) { notaHalloween = vnota; pintar("halloween", vnota); }
+        function votarHellraiser(vnota) { notaHellraiser = vnota; pintar("hellraiser", vnota); }
+        function votarScream(vnota) { notaScream = vnota; pintar("scream", vnota); }
+        function votarTubarao(vnota) { notaTubarao = vnota; pintar("tubarao", vnota); }
+
+        function registrar() {
+            let idUsuario = sessionStorage.ID_USUARIO;
+
+            fetch("http://localhost:3333/votos/registrar", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    idUsuarioServer: idUsuario,
+                    aliens: notaAliens,
+                    chuck: notaChuck,
+                    donnie: notaDonnie,
+                    exorcista: notaExorcista,
+                    grenlis: notaGrenlis,
+                    halloween: notaHalloween,
+                    hellraiser: notaHellraiser,
+                    scream: notaScream,
+                    tubarao: notaTubarao
+                })
+            });
+
+            alert("Votos enviados!");
+        }
+
+        function irDetalhes(filmes) {
+            sessionStorage.FILME_ATUAL = filmes;
+            window.location = "detalhes.html";
+        }
+
+    </script>
+
+</body>
+
+</html>

@@ -56,6 +56,9 @@ body {
     background-position: center;
 }
 
+a{
+    text-decoration: none;
+}
 
 .card {
     width: 320px;

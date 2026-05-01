@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vintage Frights | Buscar</title>
+
+    <link rel="stylesheet" href="./css/detalhes.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<!-- MENU -->
+<div class="menu">
+    <div class="logo">VINTAGE FRIGHTS</div>
+
+    <div class="botoes">
+        <a href="index.html"><span>Início</span></a>
+        <a href="quiz.html"><span>Quiz</span></a>
+        <a href="filmes.html"><span>Filmes</span></a>
+        <a href="linha.html"><span>Linha do Tempo</span></a>
+    </div>
+</div>
+
+<div class="espaco"></div>
+
+<!-- BUSCA -->
+<h1 class="selecione">SELECIONE UM FILME</h1>
+
+<select id="select_filme">
+    <option value="">Carregando...</option>
+</select>
+
+<div class="resultado">
+    <img id="imgFilme">
+
+    <h2 id="tituloFilme"></h2>
+    <p id="dataFilme"></p>
+
+    <p id="generoFilme"></p>
+    <p id="diretorFilme"></p>
+    <p id="elencoFilme"></p>
+
+    <h3>ENREDO</h3>
+    <p id="enredoFilme"></p>
+
+    <h3>CURIOSIDADES</h3>
+    <p id="curiosidadesFilme"></p>
+
+    <h3>IMPACTO</h3>
+    <p id="impactoFilme"></p>
+
+    <h3>FILMES PARECIDOS</h3>
+    <p id="parecidosFilme"></p>
+</div>
+
+<!-- RODAPÉ -->
+<div class="rodape">
+    <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
+
+    <p class="frase-rodape">
+        ONDE O PASSADO ASSOMBRA O PRESENTE
+    </p>
+
+    <div class="info-rodape">
+        <p>DIREÇÃO: MARIA CLARA | ANO: 2026</p>
+        <p>VINTAGE FRIGHTS © PROJETO INDIVIDUAL SPTECH</p>
+    </div>
+</div>
+
+<!-- SCRIPT -->
+<script>
+let dadosFilmes = {};
+
+const select = document.querySelector("#select_filme");
+const img = document.querySelector("#imgFilme");
+const titulo = document.querySelector("#tituloFilme");
+const data = document.querySelector("#dataFilme");
+const genero = document.querySelector("#generoFilme");
+const diretor = document.querySelector("#diretorFilme");
+const elenco = document.querySelector("#elencoFilme");
+const enredo = document.querySelector("#enredoFilme");
+const curiosidades = document.querySelector("#curiosidadesFilme");
+const impacto = document.querySelector("#impactoFilme");
+const parecidos = document.querySelector("#parecidosFilme");
+
+// carregar JSON
+window.onload = () => {
+
+    fetch("./js/dados.filmes.json")
+        .then(res => res.json())
+        .then(dados => {
+
+            dadosFilmes = dados;
+
+            select.innerHTML = '<option value="">Escolha um filme</option>';
+
+            for (let chave in dados) {
+                let option = document.createElement("option");
+                option.value = chave;
+                option.textContent = dados[chave].titulo;
+                select.appendChild(option);
+            }
+
+        });
+};
+
+// ao selecionar
+select.addEventListener("change", () => {
+
+    let chave = select.value;
+
+    if (!chave) {
+        limpar();
+        return;
+    }
+
+    let filme = dadosFilmes[chave];
+
+    img.src = filme.img;
+    titulo.innerHTML = filme.titulo;
+    data.innerHTML = "Ano: " + filme.data;
+    genero.innerHTML = "Gênero: " + filme.genero;
+    diretor.innerHTML = "Diretor: " + filme.diretor;
+    elenco.innerHTML = "Elenco: " + filme.elenco;
+    enredo.innerHTML = filme.enredo;
+    curiosidades.innerHTML = filme.curiosidades;
+    impacto.innerHTML = filme.impacto;
+    parecidos.innerHTML = filme.parecidos.join(", ");
+});
+
+// limpar tela
+function limpar() {
+    img.src = "";
+    titulo.innerHTML = "";
+    data.innerHTML = "";
+    genero.innerHTML = "";
+    diretor.innerHTML = "";
+    elenco.innerHTML = "";
+    enredo.innerHTML = "";
+    curiosidades.innerHTML = "";
+    impacto.innerHTML = "";
+    parecidos.innerHTML = "";
+}
+</script>
+
+</body>
+</html>

@@ -42,6 +42,9 @@ body {
     background-size: cover;
     background-position: center;
 }
+a{
+    text-decoration: none;
+}
 
 .frase {
     font-family: 'Playfair Display', serif;

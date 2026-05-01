@@ -13,7 +13,9 @@ body {
     background-position: center;
 }
 
-
+a{
+    text-decoration: none;
+}
 
 
 .menu {
@@ -62,7 +64,7 @@ body {
 
 }
 
-.pergunta {
+.perguntas {
     font-family: 'Cinzel', serif;
     font-size: 22px;
 }

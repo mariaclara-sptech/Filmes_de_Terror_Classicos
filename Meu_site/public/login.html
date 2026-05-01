@@ -8,7 +8,7 @@
 
     <script src="./js/sessao.js"></script>
 
-    <link rel="stylesheet" href="../public/css/login.css">
+    <link rel="stylesheet" href="css/login.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
 </head>
@@ -19,14 +19,16 @@
     <div class="logo">VINTAGE FRIGHTS</div>
 
     <div class="botoes">
-        <a href="../public/index.html">
+      <a href="index.html">
         <span>Início</span>
         </a>
-        <a href="../public/quiz.html">
-        <span>Quiz</span>
+        <a href="login.html">
+        <span>Login</span>
         </a>
-        <span>Filmes</span>
-        <span>Linha do Tempo</span>
+        <a href="cadastro.html">
+        <span>Cadastro</span>
+        </a>
+
     </div>
 </div>
 
@@ -34,7 +36,7 @@
 
     <div class="card">
 
-        <img src="../public/assets/img/logo.png" alt="">
+        <img src="assets/img/logo.png" alt="">
 
         <div class="campo">
             <span>E-MAIL</span>
@@ -49,7 +51,7 @@
         <button class="botao" onclick="entrar()">Entrar</button>
            
         <p class="cadastro"> NÃO POSSUI CONTA?
-            <a href="../public/cadastro.html">
+            <a  href="cadastro.html">
                 <span>CADASTRE-SE</span>
             </a>
         </p>
@@ -58,7 +60,7 @@
 
 
     <div id="div_aguardar" class="loading-div">
-        <img src="./assets/circle-loading.gif">
+        <!-- Arquivo de carregamento ausente; remova ou substitua por um GIF existente -->
     </div>
 
 </div>
@@ -81,46 +83,46 @@
 
 <script>
 function entrar() {
-    let emailVar = email_input.value.trim();
-    let senhaVar = senha_input.value.trim();
+    let email = email_input.value.trim();
+    let senha = senha_input.value.trim();
 
 
     let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 
-    let regexSenha = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,}$/;
+    let regexSenha = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]$/;
 
 
 
-    if (emailVar == "" || senhaVar == "") {
-        alert("Preencha todos os campos");
-        return false;
-    }
+    // if (email == "" || senha== "") {
+    //     alert("Preencha todos os campos");
+    //     return false;
+    // }
 
-    if (!regexEmail.test(emailVar)) {
-        alert("E-mail inválido. Ex: exemplo@email.com");
-        return false;
-    }
+    // if (!regexEmail.test(email)) {
+    //     alert("E-mail inválido. Ex: exemplo@email.com");
+    //     return false;
+    // }
 
-    if (emailVar.includes(" ")) {
-        alert("O e-mail não pode conter espaços");
-        return false;
-    }
+    // if (email.includes(" ")) {
+    //     alert("O e-mail não pode conter espaços");
+    //     return false;
+    // }
 
-    if (!regexSenha.test(senhaVar)) {
-        alert("A senha deve ter no mínimo 6 caracteres, com letras e números");
-        return false;
-    }
+    // if (!regexSenha.test(senha)) {
+    //     alert("A senha deve ter no mínimo 6 caracteres, com letras e números");
+    //     return false;
+    // }
 
 
-    fetch("/usuarios/autenticar", {
+    fetch("http://localhost:3333/usuarios/autenticar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            emailServer: emailVar,
-            senhaServer: senhaVar
+            emailServer: email,
+            senhaServer: senha
         })
     })
     .then(res => {
@@ -130,8 +132,10 @@ function entrar() {
         return res.json();
     })
     .then(json => {
+        sessionStorage.NOME_USUARIO = json.nome;
         sessionStorage.EMAIL_USUARIO = json.email;
-        window.location = "./dashboard/cards.html";
+        sessionStorage.ID_USUARIO = json.id;
+        window.location = "quiz.html";
     })
     .catch(err => {
         alert(err.message);
