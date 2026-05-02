@@ -1,0 +1,149 @@
+body {
+    margin: 0;
+    background: black;
+    color: white;
+    font-family: 'Playfair Display', serif;
+}
+
+.menu {
+    position: fixed;
+    top: 0;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    padding: 25px 60px;
+    background: linear-gradient(to bottom, black, transparent);
+}
+
+.logo {
+    font-family: 'Cinzel', serif;
+    color: #8b0000;
+}
+
+.botoes span {
+    margin-left: 25px;
+    color: #aaa;
+}
+
+.botoes span:hover {
+    color: white;
+}
+
+.topo {
+    text-align: center;
+    margin-top: 120px;
+}
+
+.topo h1 {
+    font-family: 'Cinzel', serif;
+    color: #8b0000;
+}
+
+.topo p {
+    color: #aaa;
+}
+
+.timeline {
+    width: 85%;
+    margin: 80px auto;
+    position: relative;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    width: 2px;
+    height: 100%;
+    background: #8b0000;
+}
+
+.bloco {
+    display: flex;
+    justify-content: space-between;
+    margin: 120px 0;
+}
+
+.esquerda {
+    width: 45%;
+    text-align: right;
+}
+
+.esquerda h2 {
+    font-family: 'Cinzel', serif;
+}
+
+.sub {
+    color: #8b0000;
+    font-size: 25px;
+}
+
+.imagens {
+    margin-top: 20px;
+}
+
+.imagens img {
+    width: 80px;
+    margin-left: 10px;
+    border: 1px solid #8b0000;
+    transition: 0.3s;
+}
+
+.centro {
+    position: relative;
+    width: 0;
+}
+
+.circulo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    
+    width: 15px;
+    height: 15px;
+    background: #8b0000;
+    border-radius: 50%;
+}
+
+.direita {
+    width: 45%;
+}
+
+.card {
+    background: #111;
+    border: 1px solid #8b0000;
+    padding: 20px;
+}
+a{
+    text-decoration: none;
+}
+
+.card h3 {
+    font-family: 'Cinzel', serif;
+    color: #8b0000;
+}
+.rodape {
+    margin-top: 0;
+    padding: 120px 20px 60px 20px;
+
+    background: linear-gradient(to bottom, black, #8b0000);
+    text-align: center;
+}
+
+.titulo-rodape {
+    font-family: 'Cinzel', serif;
+    font-size: 40px;
+}
+
+.frase-rodape {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    color: #ccc;
+    margin: 20px 0 40px;
+}
+
+.info-rodape {
+    font-size: 12px;
+    color: #aaa;
+    letter-spacing: 2px;
+}

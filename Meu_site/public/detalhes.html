@@ -12,7 +12,7 @@
 
 <body>
 
-<!-- MENU -->
+
 <div class="menu">
     <div class="logo">VINTAGE FRIGHTS</div>
 
@@ -26,7 +26,7 @@
 
 <div class="espaco"></div>
 
-<!-- BUSCA -->
+
 <h1 class="selecione">SELECIONE UM FILME</h1>
 
 <select id="select_filme">
@@ -56,7 +56,7 @@
     <p id="parecidosFilme"></p>
 </div>
 
-<!-- RODAPÉ -->
+
 <div class="rodape">
     <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
 
@@ -70,7 +70,7 @@
     </div>
 </div>
 
-<!-- SCRIPT -->
+
 <script>
 let dadosFilmes = {};
 
@@ -86,7 +86,7 @@ const curiosidades = document.querySelector("#curiosidadesFilme");
 const impacto = document.querySelector("#impactoFilme");
 const parecidos = document.querySelector("#parecidosFilme");
 
-// carregar JSON
+
 window.onload = () => {
 
     fetch("./js/dados.filmes.json")
@@ -107,7 +107,7 @@ window.onload = () => {
         });
 };
 
-// ao selecionar
+
 select.addEventListener("change", () => {
 
     let chave = select.value;
@@ -131,7 +131,7 @@ select.addEventListener("change", () => {
     parecidos.innerHTML = filme.parecidos.join(", ");
 });
 
-// limpar tela
+
 function limpar() {
     img.src = "";
     titulo.innerHTML = "";
