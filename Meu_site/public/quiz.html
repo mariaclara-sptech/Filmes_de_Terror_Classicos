@@ -28,11 +28,16 @@
 
         <div id="pergunta"></div>
 <div id="descricao"></div>
-<div id="opcoes"></div>
+<div id="opcoes">
+    <button onclick="selecionar(0)" id="op0"></button><br>
+    <button onclick="selecionar(1)" id="op1"></button><br>
+    <button onclick="selecionar(2)" id="op2"></button><br>
+    <button onclick="selecionar(3)" id="op3"></button><br>
+</div>
 
 
 <button id="btnProx" onclick="proxima()">PRÓXIMA</button>
-<button id="btnReiniciar" onclick="reiniciar()" style="display:none;">REINICIAR</button>
+<button id="btnReiniciar" onclick="reiniciar()" hidden>REINICIAR</button>
 
         <div id="resultado" class="resultado"></div>
 
@@ -130,6 +135,7 @@ pontos: [3,4,2,0]
 
 let atual = 0
 let pontuacao = 0
+let escolhido = -1
 
 function carregar() {
 
@@ -138,26 +144,21 @@ function carregar() {
     pergunta.innerHTML = questao.pergunta
     descricao.innerHTML = questao.descricao
 
-    opcoes.innerHTML = `
-    <input type="radio" name="opt"> ${questao.opcoes[0]} <br>
-    <input type="radio" name="opt"> ${questao.opcoes[1]} <br>
-    <input type="radio" name="opt"> ${questao.opcoes[2]} <br>
-    <input type="radio" name="opt"> ${questao.opcoes[3]} <br>
-    `
+    escolhido = -1
+
+    op0.innerHTML = questao.opcoes[0]
+    op1.innerHTML = questao.opcoes[1]
+    op2.innerHTML = questao.opcoes[2]
+    op3.innerHTML = questao.opcoes[3]
+}
+
+function selecionar(selecione){
+    escolhido = selecione
 }
 
 function proxima() {
 
-    let opcoesRadio = document.getElementsByName("opt")
-    let escolhido = -1
-
-    for(let i = 0; i < opcoesRadio.length; i++){
-        if(opcoesRadio[i].checked){
-            escolhido = i
-        }
-    }
-
-    if(escolhido == -1){
+    if (escolhido == -1) {
         alert("Escolha uma opção!")
         return
     }
@@ -166,7 +167,7 @@ function proxima() {
 
     atual++
 
-    if(atual < perguntas.length){
+    if (atual < perguntas.length) {
         carregar()
     } else {
         finalizar()
@@ -179,8 +180,8 @@ function reiniciar(){
 
     resultado.innerHTML = ""
 
-    btnReiniciar.style.display = "none"
-    btnProx.style.display = "inline-block"
+    btnReiniciar.hidden = true
+    btnProx.hidden = false
 
     carregar()
 }
@@ -194,50 +195,53 @@ function finalizar(){
     resultado.innerHTML += porcentagem.toFixed(0) + "%<br><br>"
 
     if(pontuacao <= 8){
-    resultado.innerHTML += `<p style="font-family: 'Cinzel';">Você não dura muito... em meio ao caos, suas escolhas te levam a um fim rápido e inevitável, como mais uma vítima esquecida na escuridão.`
-} 
-else if(pontuacao <= 16){
-    resultado.innerHTML += `<p style="font-family: 'Cinzel';">Você até resiste por um tempo, enfrenta o perigo de frente... mas no final, o destino cobra seu preço e sua história termina antes do amanhecer.`
-} 
-else if(pontuacao <= 20){
-    resultado.innerHTML += `<p style="font-family: 'Cinzel';">Contra todas as probabilidades, você sobrevive. Inteligente, ágil e corajoso, você é o verdadeiro protagonista dessa história sombria.`
-} 
-else {
-    resultado.innerHTML += `<p style="font-family: 'Cinzel';">Você não apenas sobrevive... você domina. Uma presença temida, quase lendária — o verdadeiro pesadelo que assombra todos os outros.`
-}
+        resultado.innerHTML += "Você não dura muito..."
+    } 
+    else if(pontuacao <= 16){
+        resultado.innerHTML += "Você resiste por um tempo..."
+    } 
+    else if(pontuacao <= 20){
+        resultado.innerHTML += "Você sobrevive."
+    } 
+    else {
+        resultado.innerHTML += "Você domina o terror."
+    }
 
-    opcoes.innerHTML = ""
+    op0.innerHTML = ""
+    op1.innerHTML = ""
+    op2.innerHTML = ""
+    op3.innerHTML = ""
+
     pergunta.innerHTML = ""
     descricao.innerHTML = ""
 
-    btnProx.style.display = "none"
-    btnReiniciar.style.display = "inline-block"
+    btnProx.hidden = true
+    btnReiniciar.hidden = false
 
-  
     let idUsuario = sessionStorage.ID_USUARIO;
+
     fetch("http://localhost:3333/quiz/registrar", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            idUsuarioServer: idUsuario,
-            pontuacaoServer: pontuacao
-        })
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        idUsuarioServer: idUsuario,
+        pontuacaoServer: pontuacao
     })
-    .then(res => {
-        if (!res.ok) {
-            console.error("Erro ao salvar quiz");
-        } else {
-            console.log("Quiz salvo com sucesso");
-        }
-    })
-    .catch(err => {
-        console.error("Erro:", err);
-    });
+})
+.then(res => {
+    if (!res.ok) {
+        console.log("Erro ao salvar")
+    }
+})
+.catch(err => {
+    console.log(err)
+})
+
+    
 }
 carregar()
-
 </script>
 
 </body>

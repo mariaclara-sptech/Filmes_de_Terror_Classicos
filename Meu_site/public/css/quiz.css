@@ -79,12 +79,12 @@ a{
     border: 1px solid #8b0000;
     padding: 12px;
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .opcao:hover {
     background: #8b0000;
 }
+
 
 .correta {
     background: green;
@@ -107,8 +107,8 @@ button {
     cursor: pointer;
 }
 
-button:hover {
-    background: #8b0000;
+button:active {
+    background-color: rgb(173, 2, 2);
 }
 
 .resultado {

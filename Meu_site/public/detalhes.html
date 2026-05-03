@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body onload="carregar()">
 
 
 <div class="menu">
@@ -26,10 +26,9 @@
 
 <div class="espaco"></div>
 
-
 <h1 class="selecione">SELECIONE UM FILME</h1>
 
-<select id="select_filme">
+<select id="select_filme" onchange="mostrar()">
     <option value="">Carregando...</option>
 </select>
 
@@ -71,80 +70,64 @@
 </div>
 
 
+
+<script src="./js/dadosFilmes.js"></script>
+
+
 <script>
-let dadosFilmes = {};
 
-const select = document.querySelector("#select_filme");
-const img = document.querySelector("#imgFilme");
-const titulo = document.querySelector("#tituloFilme");
-const data = document.querySelector("#dataFilme");
-const genero = document.querySelector("#generoFilme");
-const diretor = document.querySelector("#diretorFilme");
-const elenco = document.querySelector("#elencoFilme");
-const enredo = document.querySelector("#enredoFilme");
-const curiosidades = document.querySelector("#curiosidadesFilme");
-const impacto = document.querySelector("#impactoFilme");
-const parecidos = document.querySelector("#parecidosFilme");
+let vetor = [];
 
+function carregar() {
 
-window.onload = () => {
+    select_filme.innerHTML = "<option value=''>Escolha um filme</option>";
 
-    fetch("./js/dados.filmes.json")
-        .then(res => res.json())
-        .then(dados => {
+    for (let i = 0; i < filmes.length; i++) {
 
-            dadosFilmes = dados;
-
-            select.innerHTML = '<option value="">Escolha um filme</option>';
-
-            for (let chave in dados) {
-                let option = document.createElement("option");
-                option.value = chave;
-                option.textContent = dados[chave].titulo;
-                select.appendChild(option);
-            }
-
-        });
-};
+        select_filme.innerHTML += 
+        "<option value='" + i + "'>" + filmes[i].titulo + "</option>";
+    }
+}
 
 
-select.addEventListener("change", () => {
+function mostrar() {
 
-    let chave = select.value;
+    let ver = select_filme.value;
 
-    if (!chave) {
+    if (ver == "") {
         limpar();
         return;
     }
 
-    let filme = dadosFilmes[chave];
+    let filme = filmes[ver];
 
-    img.src = filme.img;
-    titulo.innerHTML = filme.titulo;
-    data.innerHTML = "Ano: " + filme.data;
-    genero.innerHTML = "Gênero: " + filme.genero;
-    diretor.innerHTML = "Diretor: " + filme.diretor;
-    elenco.innerHTML = "Elenco: " + filme.elenco;
-    enredo.innerHTML = filme.enredo;
-    curiosidades.innerHTML = filme.curiosidades;
-    impacto.innerHTML = filme.impacto;
-    parecidos.innerHTML = filme.parecidos.join(", ");
-});
+    imgFilme.src = filme.img;
+    tituloFilme.innerHTML = filme.titulo;
+    dataFilme.innerHTML = "Ano: " + filme.data;
+    generoFilme.innerHTML = "Gênero: " + filme.genero;
+    diretorFilme.innerHTML = "Diretor: " + filme.diretor;
+    elencoFilme.innerHTML = "Elenco: " + filme.elenco;
+    enredoFilme.innerHTML = filme.enredo;
+    curiosidadesFilme.innerHTML = filme.curiosidades;
+    impactoFilme.innerHTML = filme.impacto;
+    parecidosFilme.innerHTML = filme.parecidos;
+}
 
 
 function limpar() {
-    img.src = "";
-    titulo.innerHTML = "";
-    data.innerHTML = "";
-    genero.innerHTML = "";
-    diretor.innerHTML = "";
-    elenco.innerHTML = "";
-    enredo.innerHTML = "";
-    curiosidades.innerHTML = "";
-    impacto.innerHTML = "";
-    parecidos.innerHTML = "";
-}
-</script>
 
+    imgFilme.src = "";
+    tituloFilme.innerHTML = "";
+    dataFilme.innerHTML = "";
+    generoFilme.innerHTML = "";
+    diretorFilme.innerHTML = "";
+    elencoFilme.innerHTML = "";
+    enredoFilme.innerHTML = "";
+    curiosidadesFilme.innerHTML = "";
+    impactoFilme.innerHTML = "";
+    parecidosFilme.innerHTML = "";
+}
+
+</script>
 </body>
 </html>

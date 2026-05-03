@@ -82,6 +82,7 @@
 </body>
 
 <script>
+    /* Ultilizei a funcao entrar para criar as validacoes */
 function entrar() {
     let email = email_input.value.trim();
     let senha = senha_input.value.trim();
@@ -94,20 +95,20 @@ function entrar() {
 
 
 
-    // if (email == "" || senha== "") {
-    //     alert("Preencha todos os campos");
-    //     return false;
-    // }
+    if (email == "" || senha== "") {
+        alert("Preencha todos os campos");
+        return false;
+    }
 
-    // if (!regexEmail.test(email)) {
-    //     alert("E-mail inválido. Ex: exemplo@email.com");
-    //     return false;
-    // }
+    if (!regexEmail.test(email)) {
+        alert("E-mail inválido. Ex: exemplo@email.com");
+        return false;
+    }
 
-    // if (email.includes(" ")) {
-    //     alert("O e-mail não pode conter espaços");
-    //     return false;
-    // }
+    if (email.includes(" ")) {
+        alert("O e-mail não pode conter espaços");
+        return false;
+    }
 
     // if (!regexSenha.test(senha)) {
     //     alert("A senha deve ter no mínimo 6 caracteres, com letras e números");
