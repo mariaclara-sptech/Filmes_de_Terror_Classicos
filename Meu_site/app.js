@@ -7,22 +7,24 @@ var caminho_env = ambiente_processo === 'producao' ? '.env' : '.env.dev';
 
 require("dotenv").config({ path: caminho_env });
 
-var express = require("express");
-var cors = require("cors");
-var path = require("path");
-var PORTA_APP = process.env.APP_PORT;
-var HOST_APP = process.env.APP_HOST;
+let express = require("express");
+let cors = require("cors");
+let path = require("path");
 
-var app = express();
+let PORTA_APP = process.env.APP_PORT;
+let HOST_APP = process.env.APP_HOST;
+
+let app = express();
 
 var indexRouter = require("./src/routes/index");
 var usuarioRouter = require("./src/routes/usuarios");
-var avisosRouter = require("./src/routes/avisos");
-var medidasRouter = require("./src/routes/medidas");
-var aquariosRouter = require("./src/routes/aquarios");
-var empresasRouter = require("./src/routes/empresas");
+// var avisosRouter = require("./src/routes/avisos");
+// var medidasRouter = require("./src/routes/medidas");
+// var aquariosRouter = require("./src/routes/aquarios");
+// var empresasRouter = require("./src/routes/empresas");
 var votosRouter = require("./src/routes/votos");
 var quizRouter = require("./src/routes/quiz");
+var filmesRouter = require("./src/routes/filmes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,6 +40,7 @@ app.use("/usuarios", usuarioRouter);
 // app.use("/empresas", empresasRouter);
 app.use("/votos", votosRouter);
 app.use("/quiz", quizRouter);
+app.use("/filmes", filmesRouter);
 
 app.listen(PORTA_APP, function () {
     console.log(`

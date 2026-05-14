@@ -1,52 +1,60 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+CREATE DATABASE projeto_individual;
 
-/*
-comandos para mysql server
-*/
+USE projeto_individual;
 
-create database projeto_individual;
+CREATE TABLE usuario (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50),
+    email VARCHAR(50) UNIQUE,
+    senha VARCHAR(50)
+);
 
-use projeto_individual;
- 
- CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50)
+CREATE TABLE filme (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nome VARCHAR(50)
 );
 
 CREATE TABLE votos (
     id INT PRIMARY KEY AUTO_INCREMENT,
+
     fkUsuario INT,
+    fkFilme INT,
 
-    aliens INT,
-    chuck INT,
-    donnie INT,
-    exorcista INT,
-    grenlis INT,
-    halloween INT,
-    hellraiser INT,
-    scream INT,
-    tubarao INT,
+    CONSTRAINT ukUsuarioFilme
+        UNIQUE (fkUsuario, fkFilme),
 
-    CONSTRAINT fkUsuarioVoto 
-        FOREIGN KEY (fkUsuario) REFERENCES usuario(id)
+    CONSTRAINT fkVotoUsuario
+        FOREIGN KEY (fkUsuario)
+        REFERENCES usuario(id),
+
+    CONSTRAINT fkVotoFilme
+        FOREIGN KEY (fkFilme)
+        REFERENCES filme(id)
 );
-
-ALTER TABLE votos ADD UNIQUE (fkUsuario);
 
 CREATE TABLE quiz (
     id INT PRIMARY KEY AUTO_INCREMENT,
+
     fkUsuario INT,
     pontuacao INT,
 
-    CONSTRAINT fkUsuarioQuiz 
-        FOREIGN KEY (fkUsuario) REFERENCES usuario(id)
+    CONSTRAINT fkQuizUsuario
+        FOREIGN KEY (fkUsuario)
+        REFERENCES usuario(id)
 );
 
-ALTER TABLE quiz ADD UNIQUE (fkUsuario);
+INSERT INTO filme (nome) VALUES
+('Alien'),
+('Chuck'),
+('Donnie Darko'),
+('O Exorcista'),
+('Gremlins'),
+('Halloween'),
+('Hellraiser'),
+('Scream'),
+('Tubarão');
 
-select * from usuario;
-select * from votos;
+SELECT * FROM usuario;
+SELECT * FROM filme;
+SELECT * FROM votos;
+SELECT * FROM quiz;

@@ -88,9 +88,7 @@ button:hover {
     object-fit: cover;
 }
 
-.filme:hover {
-    transform: scale(1.05);
-}
+
 
 .estrelas {
     margin-top: 10px;

@@ -22,7 +22,33 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucaoSql);
 }
 
+function obterPorId(idUsuario) {
+    console.log("ACESSEI O USUARIO MODEL - obterPorId: ", idUsuario)
+    var instrucaoSql = `
+        SELECT u.id, u.nome, u.email, COALESCE(q.pontuacao, 0) as pontuacaoQuiz
+        FROM usuario u
+        LEFT JOIN quiz q ON u.id = q.fkUsuario
+        WHERE u.id = '${idUsuario}';
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
+function obterRanking() {
+    console.log("ACESSEI O USUARIO MODEL - obterRanking")
+    var instrucaoSql = `
+        SELECT u.id, u.nome, COALESCE(q.pontuacao, 0) as pontuacaoQuiz
+        FROM usuario u
+        LEFT JOIN quiz q ON u.id = q.fkUsuario
+        ORDER BY COALESCE(q.pontuacao, 0) DESC;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    obterPorId,
+    obterRanking
 };

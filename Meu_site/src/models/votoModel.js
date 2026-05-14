@@ -1,18 +1,82 @@
-var database = require("../database/config")
+let database = require("../database/config");
 
-function registrar(idUsuario, aliens, chuck, donnie, exorcista, grenlis, halloween, hellraiser, scream, tubarao) {
-    console.log("ACESSEI O VOTO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function registrar(): ", idUsuario, aliens, chuck, donnie, exorcista, grenlis, halloween, hellraiser, scream, tubarao)
-    var instrucaoSql = `
-        INSERT INTO votos (fkUsuario, aliens, chuck, donnie, exorcista, grenlis, halloween, hellraiser, scream, tubarao) 
-        VALUES ('${idUsuario}', '${aliens}', '${chuck}', '${donnie}', '${exorcista}', '${grenlis}', '${halloween}', '${hellraiser}', '${scream}', '${tubarao}')
-        ON DUPLICATE KEY UPDATE 
-        aliens = VALUES(aliens), chuck = VALUES(chuck), donnie = VALUES(donnie), exorcista = VALUES(exorcista), 
-        grenlis = VALUES(grenlis), halloween = VALUES(halloween), hellraiser = VALUES(hellraiser), scream = VALUES(scream), tubarao = VALUES(tubarao);
+function registrar(idUsuario, filmes) {
+
+    let deleteSql = `
+        DELETE FROM votos
+        WHERE fkUsuario = ${idUsuario};
     `;
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
+    return database.executar(deleteSql)
+        .then(() => {
+
+            let promessas = [];
+
+            for (let i = 0; i < filmes.length; i++) {
+
+                let insertSql = `
+                    INSERT INTO votos (fkUsuario, fkFilme)
+                    VALUES (${idUsuario}, ${filmes[i]});
+                `;
+
+                promessas.push(database.executar(insertSql));
+            }
+
+            return Promise.all(promessas);
+        });
+}
+
+function obterTodos() {
+
+    let instrucaoSql = `
+        SELECT 
+            v.id,
+            u.nome AS usuario,
+            f.nome AS filme
+        FROM votos v
+        JOIN usuario u
+            ON v.fkUsuario = u.id
+        JOIN filme f
+            ON v.fkFilme = f.id;
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
+function obterPorUsuario(idUsuario) {
+
+    let instrucaoSql = `
+        SELECT 
+            f.id,
+            f.nome
+        FROM votos v
+        JOIN filme f
+            ON v.fkFilme = f.id
+        WHERE v.fkUsuario = ${idUsuario};
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
+function obterMediaFilmes() {
+
+    let instrucaoSql = `
+        SELECT 
+            f.nome AS filme,
+            COUNT(v.id) AS totalVotos
+        FROM filme f
+        LEFT JOIN votos v
+            ON f.id = v.fkFilme
+        GROUP BY f.id
+        ORDER BY totalVotos DESC;
+    `;
+
     return database.executar(instrucaoSql);
 }
 
 module.exports = {
-    registrar
+    registrar,
+    obterTodos,
+    obterPorUsuario,
+    obterMediaFilmes
 };

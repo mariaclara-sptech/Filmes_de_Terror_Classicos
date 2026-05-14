@@ -1,88 +1,362 @@
+<!-- ========================= FILMES.HTML ========================= -->
+
 <!DOCTYPE html>
 <html lang="pt-br">
 
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaTech | Dashboards</title>
 
-    
-    <link rel="stylesheet" href="./../css/dashboards.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
-    <script src="../js/sessao.js"></script>
-    <script src="./../js/alerta.js"></script>
+    <title>Vintage Frights | Filmes</title>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
-        rel="stylesheet">
+    <link rel="stylesheet" href="/css/pagina.geral.css">
 
-    <!-- scripts do Chart.js - 2022-1 -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/sessao.js"></script>
 
-    <!--FONT AWESOME-->
-    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
-<!-- <body onload=" atualizarFeed()"> -->
+<body onload="carregarFilmes()">
 
-<body>
+    <div class="sidebar">
 
-    <div class="janela">
-        <div class="header-left">
-            <h1>AquaTech</h1>
+        <div>
 
-            <div class="hello">
-                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            <div class="logo">
+
+                <img src="/assets/img/logo.png" class="logo-img">
+
+                <h1>Vintage Frights</h1>
+
             </div>
 
-            <div class="btn-nav-white">
-                <a href="./cards.html">
-                    <h3>Aquários</h3>
+            <div class="menu">
+
+                <a href="./dashboard.html" class="ativo">
+                    DASHBOARD
                 </a>
-            </div>
-
-            <div class="btn-nav">
-
-                <h3>Gráficos</h3>
-
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="./mural.html">
-                    <h3>Mural de Avisos</h3>
+                 <a href="./pontuacao.html" class="ativo">
+                    DADOS VOTACAO
                 </a>
-            </div>
+                <a href="./historico.html" class="ativo">
+                    HISTORICO
+                </a>
 
-            <div class="btn-logout" onclick="limparSessao()">
-                <h3>Sair</h3>
+
             </div>
 
         </div>
+         <a href="/linha.html">
+        <button>
 
-        <div class="dash">
-            <div id="alerta">
-            </div>
+            SAIR
+        </button>
+        </a>
 
-            <div class="btns-dash" id="btnAquario">
-                <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
-            <div id="graficos">
-            </div>
-        </div>
     </div>
 
+    <div class="main">
 
-</body>
+        <div class="topo">
 
-</html>
+            <div class="kpi">
+                <span>FILME FAVORITO</span>
+                <h2 id="favoritoFilme">-</h2>
+            </div>
+
+            <div class="kpi">
+                <span>SUA PONTUAÇÃO NO QUIZ</span>
+                <h2 id="pontuacaoQuiz">0</h2>
+            </div>
+
+            <div class="kpi">
+                <span>RANKING</span>
+                <h2 id="rankingQuiz">#0</h2>
+            </div>
+
+        </div>
+
+        <div class="meio">
+
+            <div class="grafico-box">
+
+                <h3>MÉDIA DOS FILMES</h3>
+
+                <canvas id="graficoMedia"></canvas>
+
+            </div>
+
+            <div class="grafico-box">
+
+                <h3>VOCÊ VS COMUNIDADE</h3>
+
+                <canvas id="graficoComparacao"></canvas>
+
+            </div>
+
+        </div>
+
+        <div class="baixo">
+
+            <div class="mini-box">
+
+                <h3>SEU TOP 3</h3>
+
+                <div id="topUsuario"></div>
+
+            </div>
+
+            <div class="mini-box">
+
+                <h3>TOP COMUNIDADE</h3>
+
+                <div id="topComunidade"></div>
+
+            </div>
+
+        </div>
+
+    </div>
 
 <script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
-    let proximaAtualizacao;
 
-    
+    function carregarFilmes() {
+
+        validarSessao()
+        carregarGraficos()
+        carregarRankingQuiz()
+        carregarPontuacao()
+
+    }
+
+    function carregarPontuacao() {
+
+        let idUsuario = sessionStorage.getItem('ID_USUARIO')
+        let elementoPontuacao = document.getElementById('pontuacaoQuiz')
+
+        if (!idUsuario) {
+            elementoPontuacao.innerText = 0
+            return
+        }
+
+        fetch(`/quiz/pontuacao/${idUsuario}`)
+
+            .then(function (resposta) {
+
+                if (!resposta.ok) {
+                    return { pontuacao: 0 }
+                }
+
+                return resposta.json()
+
+            })
+
+            .then(function (dados) {
+
+                elementoPontuacao.innerText = Number(dados.pontuacao) || 0
+
+            })
+
+            .catch(function () {
+
+                elementoPontuacao.innerText = 0
+
+            })
+
+    }
+
+    function carregarRankingQuiz() {
+
+        let idUsuario = sessionStorage.ID_USUARIO
+
+        fetch("/quiz/ranking")
+
+            .then(function (resposta) {
+
+                return resposta.json()
+
+            })
+
+            .then(function (dados) {
+
+                for (let i = 0; i < dados.length; i++) {
+
+                    if (dados[i].nome == sessionStorage.NOME_USUARIO) {
+
+                        rankingQuiz.innerHTML = `#${i + 1}`
+                        break
+
+                    }
+
+                }
+
+            })
+
+    }
+
+    function carregarGraficos() {
+
+        let idUsuario = sessionStorage.ID_USUARIO
+
+        Promise.all([
+
+            fetch(`/votos/usuario/${idUsuario}`).then(function (r) {
+                return r.json()
+            }),
+
+            fetch(`/votos/media/filmes`).then(function (r) {
+                return r.json()
+            })
+
+        ])
+
+            .then(function (respostas) {
+
+                let votosUsuario = respostas[0]
+                let votosMedia = respostas[1]
+
+                let filmes = [
+                    "Alien",
+                    "Chuck",
+                    "Donnie Darko",
+                    "O Exorcista",
+                    "Gremlins",
+                    "Halloween",
+                    "Hellraiser",
+                    "Scream",
+                    "Tubarão"
+                ]
+
+                let usuarioContagem = {
+                    "Alien": 0,
+                    "Chuck": 0,
+                    "Donnie Darko": 0,
+                    "O Exorcista": 0,
+                    "Gremlins": 0,
+                    "Halloween": 0,
+                    "Hellraiser": 0,
+                    "Scream": 0,
+                    "Tubarão": 0
+                }
+
+                for (let i = 0; i < votosUsuario.length; i++) {
+
+                    usuarioContagem[votosUsuario[i].nome]++
+
+                }
+
+                let filmesUsuario = []
+
+                for (let i = 0; i < filmes.length; i++) {
+
+                    filmesUsuario.push({
+                        nome: filmes[i],
+                        nota: usuarioContagem[filmes[i]]
+                    })
+
+                }
+
+                filmesUsuario.sort(function (a, b) {
+                    return b.nota - a.nota
+                })
+
+                favoritoFilme.innerHTML = filmesUsuario[0].nome
+
+                topUsuario.innerHTML = ""
+
+                for (let i = 0; i < 3; i++) {
+
+                    topUsuario.innerHTML += `
+                        <p>${i + 1}. ${filmesUsuario[i].nome} ★ ${filmesUsuario[i].nota}</p>
+                    `
+
+                }
+
+                votosMedia.sort(function (a, b) {
+                    return b.totalVotos - a.totalVotos
+                })
+
+                topComunidade.innerHTML = ""
+
+                for (let i = 0; i < 3; i++) {
+
+                    topComunidade.innerHTML += `
+                        <p>${i + 1}. ${votosMedia[i].filme} ★ ${votosMedia[i].totalVotos}</p>
+                    `
+
+                }
+
+                new Chart(graficoMedia, {
+
+                    type: 'line',
+
+                    data: {
+
+                        labels: votosMedia.map(function (f) {
+                            return f.filme
+                        }),
+
+                        datasets: [{
+
+                            label: "Comunidade",
+
+                            data: votosMedia.map(function (f) {
+                                return f.totalVotos
+                            }),
+
+                            borderColor: "#8b0000",
+
+                            tension: .4
+
+                        }]
+
+                    }
+
+                })
+
+                new Chart(graficoComparacao, {
+
+                    type: 'line',
+
+                    data: {
+
+                        labels: filmes,
+
+                        datasets: [
+
+                            {
+
+                                label: "Você",
+
+                                data: filmesUsuario.map(function (f) {
+                                    return f.nota
+                                }),
+
+                                borderColor: "red"
+
+                            },
+
+                            {
+
+                                label: "Comunidade",
+
+                                data: votosMedia.map(function (f) {
+                                    return f.totalVotos
+                                }),
+
+                                borderColor: "white"
+
+                            }
+
+                        ]
+
+                    }
+
+                })
+
+            })
+
+    }
+
 </script>

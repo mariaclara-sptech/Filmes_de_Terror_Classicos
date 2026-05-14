@@ -85,7 +85,41 @@ function cadastrar(req, res) {
     }
 }
 
+function obterPorId(req, res) {
+    var idUsuario = req.params.id;
+
+    if (idUsuario == undefined) {
+        res.status(400).send("ID do usuário está undefined!");
+    } else {
+        usuarioModel.obterPorId(idUsuario)
+            .then(function (resultado) {
+                if (resultado.length > 0) {
+                    res.json(resultado[0]);
+                } else {
+                    res.status(404).send("Usuário não encontrado!");
+                }
+            })
+            .catch(function (erro) {
+                console.log(erro);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
+function obterRanking(req, res) {
+    usuarioModel.obterRanking()
+        .then(function (resultado) {
+            res.json(resultado);
+        })
+        .catch(function (erro) {
+            console.log(erro);
+            res.status(500).json(erro.sqlMessage);
+        });
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    obterPorId,
+    obterRanking
 }

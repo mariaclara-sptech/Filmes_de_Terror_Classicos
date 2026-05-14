@@ -6,15 +6,17 @@ function validarSessao() {
     var b_usuario = document.getElementById("b_usuario");
 
     if (email != null && nome != null) {
-        b_usuario.innerHTML = nome;
+        if (b_usuario) {
+            b_usuario.innerHTML = nome;
+        }
     } else {
-        window.location = "../login.html";
+        window.location = "/login.html";
     }
 }
 
 function limparSessao() {
     sessionStorage.clear();
-    window.location = "../login.html";
+    window.location = "/login.html";
 }
 
 // carregamento (loading)

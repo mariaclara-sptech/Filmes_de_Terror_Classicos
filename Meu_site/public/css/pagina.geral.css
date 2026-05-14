@@ -1,0 +1,258 @@
+
+body{
+
+    margin:0;
+
+    background: black;
+
+    font-family: 'Cinzel', serif;
+
+    overflow:hidden;
+}
+*{ 
+    box-sizing: border-box;
+
+}
+
+.sidebar{
+
+    width:220px;
+
+    height:100vh;
+
+    background: linear-gradient(to bottom, black 70%, rgba(0, 0, 0, 1) 10%, rgb(133, 0, 0) 100%);
+
+    border-right:1px solid #8b0000;
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    align-self: center;
+
+    padding:25px;
+
+    box-sizing:border-box;
+} 
+
+#topQuiz {
+    max-height: 100%;
+}
+
+.sidebar button{
+ font-family: 'Cinzel', serif;
+}
+
+.logo{
+
+    text-align:center;
+}
+
+.logo-img{
+
+    width: 130px;
+}
+
+a {
+    font-family: 'Cinzel', serif;
+}
+
+.logo h1{
+
+    font-family:'Cinzel', serif;
+
+    color:#8b0000;
+
+    font-size:24px;
+    
+}
+
+.usuario{
+
+    margin-top:20px;
+
+    text-align:center;
+
+    color:#999;
+
+    font-size:13px;
+}
+
+.menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-top:40px;
+
+    gap:18px;
+}
+
+.menu a{
+
+    color:#888;
+
+    text-decoration:none;
+
+    letter-spacing:2px;
+
+    font-size:13px;
+
+    align-self: center;
+}
+
+.menu a:hover,
+.ativo{
+
+    color:white;
+}
+
+.sidebar button{
+
+    height:45px;
+
+    background:transparent;
+
+    border:1px solid #8b0000;
+
+    color:white;
+
+    cursor:pointer;
+}
+
+.main{
+
+    margin-left:220px;
+
+    height:100vh;
+
+    padding:20px;
+
+    box-sizing:border-box;
+}
+
+.topo{
+
+    height:18%;
+
+    display:flex;
+
+    gap:15px;
+}
+
+.kpi{
+
+    flex:1;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid #8b0000;
+
+    padding:15px;
+
+    box-sizing:border-box;
+}
+
+.kpi span{
+
+    font-size:11px;
+
+    color:#999;
+
+    letter-spacing:2px;
+    
+}
+
+.kpi h2{
+
+    font-size:28px;
+
+    color:#8b0000;
+    font-family: 'Cinzel', serif;
+}
+
+.meio{
+
+    height:48%;
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:15px;
+}
+
+.baixo{
+
+    height:22%;
+
+    display:flex;
+
+    gap:15px;
+
+    margin-top:15px;
+}
+
+.grafico-box,
+.ranking,
+.mini-box{
+
+    flex:1;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid #8b0000;
+
+    padding:15px;
+
+    box-sizing:border-box;
+}
+
+.grafico-box h3,
+.ranking h3,
+.mini-box h3{
+
+    font-size:13px;
+
+    letter-spacing:2px;
+
+    color:#ccc;
+    font-family: 'Cinzel', serif;
+}
+
+canvas{
+
+    width:100% !important;
+
+    height:85% !important;
+}
+
+.rank-item{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    padding:12px 0;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+    font-size:13px;
+}
+
+.atividade p,
+.mini-box p{
+
+    font-size:9px;
+
+    color:#bbb;
+}

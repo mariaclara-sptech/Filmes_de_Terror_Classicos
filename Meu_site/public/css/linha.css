@@ -13,6 +13,7 @@ body {
     justify-content: space-between;
     padding: 25px 60px;
     background: linear-gradient(to bottom, black, transparent);
+    z-index: 99;
 }
 
 .logo {
