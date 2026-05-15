@@ -20,11 +20,10 @@
 
 <body>
     <!-- -- usei a tag audio para colocar musica em loop ao acessar minha home -->
-
-    <audio autoplay loop muted>
-  <source src="music.wav" type="audio/wav">
-</audio>
-
+    <audio src="./assets/music.wav" id="musica"></audio>
+    <button onclick="tocar()" id="botao_musica">
+        <img src="./assets/icon/disco.png" alt="disco" id="vinil">
+    </button>
     <div class="menu">
         <div class="logo">VINTAGE FRIGHTS</div>
 
@@ -99,14 +98,6 @@
 
                 </button>
             </a>
-            <a href="login.html">
-                <button class="card">
-
-                    <img src="assets/icon/logo4.png">
-                    <h3>FATOS REAIS</h3>
-                    <p>Descubra as histórias verdadeiras por trás dos filmes</p>
-                </button>
-            </a>
 
         </div>
 
@@ -137,3 +128,44 @@
 </body>
 
 </html>
+<script>
+    function tocar() {
+        if (musica.paused) {
+            musica.play()
+            vinil.id = 'girar'
+
+        } else {
+            musica.pause()
+            girar.id = 'vinil'
+        }
+
+    }
+</script>
+<style>
+    #botao_musica {
+        position: fixed;
+        left: 0.5%;
+        bottom: 15%;
+        width: 50px;
+        height: 50px;
+        background-color: #00000000;
+        border: none;
+    }
+
+    #botao_musica img {
+        width: 350%;
+        
+    }
+
+    #girar {
+        animation: rodar 3s infinite linear;
+    }
+    @keyframes rodar {
+        from{
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>

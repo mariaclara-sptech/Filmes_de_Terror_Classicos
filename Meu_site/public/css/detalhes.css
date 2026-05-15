@@ -1,124 +1,315 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+body{
+
+    margin:0;
+
+    background:black;
+
+    font-family:'Cinzel', serif;
+
+    overflow-x:hidden;
 }
 
-body {
-    color: white;
-    text-align: center;
-    font-family: 'Playfair Display', serif;
-
-    background-color: black;
-
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
+*{
+    box-sizing:border-box;
 }
 
-.menu {
-   position: fixed;
-    top: 0;
-    width: 100%;
+.sidebar a{
 
-    display: flex;
-    justify-content: space-between;
-    padding: 25px 60px;
+    display:flex;
 
-    background: linear-gradient(to bottom, black, transparent);
+    justify-content:center;
+}
+.sidebar{
+
+    width:220px;
+
+    height:100vh;
+
+    background: linear-gradient(
+        to bottom,
+        black 70%,
+        rgba(0,0,0,1) 10%,
+        rgb(133,0,0) 100%
+    );
+
+    border-right:1px solid #8b0000;
+
+    position:fixed;
+
+    left:0;
+
+    top:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:space-between;
+
+    padding:25px;
 }
 
-.logo {
-    color: #8b0000;
-    font-family: 'Cinzel', serif;
+.logo{
+
+    text-align:center;
 }
 
-.botoes span {
-    margin-left: 25px;
-    color: #aaa;
-    cursor: pointer;
-    transition: 0.3s;
+.logo-img{
+
+    width:130px;
 }
 
-.botoes span:hover {
-    color: white;
+.logo h1{
+
+    color:#8b0000;
+
+    font-size:24px;
 }
 
-a {
-    text-decoration: none;
+.menu{
+
+    display:flex;
+
+    flex-direction:column;
+
+    margin-top:40px;
+
+    gap:18px;
 }
 
-.espaco {
-    height: 120px;
+.menu a{
+
+    color:#888;
+
+    text-decoration:none;
+
+    letter-spacing:2px;
+
+    font-size:13px;
+
+    align-self:center;
 }
 
-h1 {
-    margin-top: 20px;
-    letter-spacing: 2px;
-    font-family: 'Cinzel', serif;
+.menu a:hover,
+.ativo{
+
+    color:white;
 }
 
-select {
-    margin-top: 20px;
-    padding: 12px;
-    width: 320px;
-    border: 1px solid #8b0000;
-    background: transparent;
-    color: rgb(142, 0, 0);
-    text-align: center;
-    font-family: 'Cinzel', serif;
-    cursor: pointer;
+.sidebar button{
+
+    width:180px;
+
+    height:45px;
+
+    background:transparent;
+
+    border:1px solid #8b0000;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-family:'Cinzel', serif;
 }
 
-.resultado {
-    margin-top: 50px;
+
+
+.resultado{
+
+    margin-top:2px;
+}
+.main{
+
+    margin-left:220px;
+
+    min-height:100vh;
+
+    padding:40px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+.topo-filme{
+
+    display:flex;
+
+    gap:40px;
+
+    align-items:flex-start;
+
+    margin-bottom:40px;
 }
 
-img {
-    width: 240px;
-    height: 340px;
-    object-fit: cover;
-    margin-bottom: 20px;
-    border: 1px solid #300000;
+
+#imgFilme{
+
+    width:220px;
+
+    height:320px;
+
+    object-fit:cover;
+
+    border:2px solid #8b0000;
+
+    border-radius:10px;
 }
 
-h2 {
-    margin-top: 10px;
+
+.info-filme{
+
+    flex:1;
+
+    text-align:left;
 }
 
-p {
-    width: 600px;
-    margin: 10px auto;
-    color: #ccc;
-    line-height: 1.5;
+#tituloFilme{
+
+    color:#8b0000;
+
+    font-size:38px;
+
+    margin-bottom:20px;
 }
 
-h3 {
-    margin-top: 25px;
-    color: #8b0000;
-    letter-spacing: 1px;
+.info-filme p{
+
+    font-size:16px;
+
+    margin-bottom:12px;
+
+    color:#ccc;
 }
 
-.rodape {
-    margin-top: 120px;
-    padding: 120px 20px 60px 20px;
-    background: linear-gradient(to bottom, black, #8b0000);
+
+.detalhes-filme{
+
+    text-align:left;
 }
 
-.titulo-rodape {
-    font-family: 'Cinzel', serif;
-    font-size: 40px;
+.detalhes-filme p{
+
+    font-size:15px;
+
+    line-height:1.8;
+
+    margin-bottom:20px;
 }
 
-.frase-rodape {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    color: #ccc;
-    margin-bottom: 40px;
+h3{
+
+    margin-top:30px;
+
+    color:#8b0000;
+
+    letter-spacing:2px;
 }
 
-.info-rodape {
-    font-size: 12px;
-    color: #aaa;
-    letter-spacing: 2px;
+
+.titulo{
+
+    color:white;
+
+    letter-spacing:3px;
+
+    margin-bottom:40px;
+
+    text-align:center;
+}
+
+
+select{
+
+    width:200px;
+
+    padding:6px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid #8b0000;
+
+    color:white;
+
+    text-align:center;
+
+    font-family:'Cinzel', serif;
+
+    outline:none;
+
+    margin-bottom:10px;
+}
+
+select option{
+
+    background:black;
+}
+
+
+
+.resultado{
+
+    width:100%;
+
+    max-width:900px;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid #8b0000;
+
+    padding:40px;
+
+    text-align:center;
+
+    border-radius:10px;
+}
+
+
+
+#imgFilme{
+
+    width:150px;
+
+    height: 220px;
+
+    object-fit:cover;
+
+    border:2px solid #8b0000;
+
+    border-radius:10px;
+
+    margin-bottom:25px;
+}
+
+#tituloFilme{
+
+    color:#8b0000;
+
+    font-size:20px;
+
+    margin-bottom:2px;
+}
+
+
+p{
+
+    color:#ccc;
+
+    line-height:1.7;
+
+    font-size:12px;
+}
+
+h3{
+
+    margin-top:12px;
+
+    color:#8b0000;
+
+    letter-spacing:2px;
+}
+h1{
+    font-size: 35px;
 }

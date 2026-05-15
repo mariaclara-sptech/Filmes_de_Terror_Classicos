@@ -2,132 +2,194 @@
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
-    <title>Vintage Frights | Buscar</title>
+
+    <title>Vintage Frights | Informações</title>
 
     <link rel="stylesheet" href="/css/detalhes.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap"
+        rel="stylesheet">
 
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display&display=swap" rel="stylesheet">
 </head>
 
 <body onload="carregar()">
 
+    <!-- SIDEBAR -->
 
-<div class="menu">
-    <div class="logo">VINTAGE FRIGHTS</div>
+    <div class="sidebar">
 
-    <div class="botoes">
-        <a href="/index.html"><span>Início</span></a>
-        <a href="/quiz.html"><span>Quiz</span></a>
-        <a href="/filmes.html"><span>Filmes</span></a>
-        <a href="/linha.html"><span>Linha do Tempo</span></a>
+        <div>
+
+            <div class="logo">
+
+                <img src="/assets/img/logo.png" class="logo-img">
+
+                <h1>Vintage Frights</h1>
+
+            </div>
+
+            <div class="menu">
+
+                <a href="./dashboard/dashboard.html">
+                    DASHBOARD
+                </a>
+
+                <a href="./dashboard/pontuacao.html">
+                    DADOS VOTACAO
+                </a>
+
+                <a href="../detalhes.html" class="ativo">
+                    INFORMACOES
+                </a>
+
+            </div>
+
+        </div>
+
+        <a href="/linha.html">
+            <button>SAIR</button>
+        </a>
+
     </div>
-</div>
 
-<div class="espaco"></div>
+    <!-- CONTEUDO -->
 
-<h1 class="selecione">SELECIONE UM FILME</h1>
+   <div class="main">
 
-<select id="select_filme" onchange="mostrar()">
-    <option value="">Carregando...</option>
-</select>
+    <h1 class="titulo">SELECIONE UM FILME</h1>
 
-<div class="resultado">
-    <img id="imgFilme">
+    <select id="select_filme" onchange="mostrar()">
+        <option value="">Escolha um filme</option>
+    </select>
 
-    <h2 id="tituloFilme"></h2>
-    <p id="dataFilme"></p>
+   <div class="resultado">
 
-    <p id="generoFilme"></p>
-    <p id="diretorFilme"></p>
-    <p id="elencoFilme"></p>
+    <div class="topo-filme">
 
-    <h3>ENREDO</h3>
-    <p id="enredoFilme"></p>
+        <img id="imgFilme">
 
-    <h3>CURIOSIDADES</h3>
-    <p id="curiosidadesFilme"></p>
+        <div class="info-filme">
 
-    <h3>IMPACTO</h3>
-    <p id="impactoFilme"></p>
+            <h2 id="tituloFilme"></h2>
 
-    <h3>FILMES PARECIDOS</h3>
-    <p id="parecidosFilme"></p>
-</div>
+            <p id="dataFilme"></p>
 
+            <p id="generoFilme"></p>
 
-<div class="rodape">
-    <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
+            <p id="diretorFilme"></p>
 
-    <p class="frase-rodape">
-        ONDE O PASSADO ASSOMBRA O PRESENTE
-    </p>
+            <p id="elencoFilme"></p>
 
-    <div class="info-rodape">
-        <p>DIREÇÃO: MARIA CLARA | ANO: 2026</p>
-        <p>VINTAGE FRIGHTS © PROJETO INDIVIDUAL SPTECH</p>
+        </div>
+
     </div>
+
+    <div class="detalhes-filme">
+
+        <h3>ENREDO</h3>
+        <p id="enredoFilme"></p>
+
+        <h3>CURIOSIDADES</h3>
+        <p id="curiosidadesFilme"></p>
+
+        <h3>IMPACTO</h3>
+        <p id="impactoFilme"></p>
+
+        <h3>FILMES PARECIDOS</h3>
+        <p id="parecidosFilme"></p>
+
+    </div>
+
 </div>
 
+    </div>
 
+    <script src="/js/dadosFilmes.js"></script>
 
-<script src="/js/dadosFilmes.js"></script>
+    <script>
 
+        function carregar() {
 
-<script>
+            select_filme.innerHTML =
+                "<option value=''>Escolha um filme</option>";
 
-let vetor = [];
+            for (let i = 0; i < filmes.length; i++) {
 
-function carregar() {
+                select_filme.innerHTML += `
+                    <option value="${i}">
+                        ${filmes[i].titulo}
+                    </option>
+                `;
+            }
+        }
 
-    select_filme.innerHTML = "<option value=''>Escolha um filme</option>";
+        function mostrar() {
 
-    for (let i = 0; i < filmes.length; i++) {
+            let indice = select_filme.value;
 
-        select_filme.innerHTML += 
-        "<option value='" + i + "'>" + filmes[i].titulo + "</option>";
-    }
-}
+            if (indice == "") {
+                limpar();
+                return;
+            }
 
+            let filme = filmes[indice];
 
-function mostrar() {
+            imgFilme.src = filme.img;
 
-    let ver = select_filme.value;
+            tituloFilme.innerHTML = filme.titulo;
 
-    if (ver == "") {
-        limpar();
-        return;
-    }
+            dataFilme.innerHTML =
+                "Ano: " + filme.data;
 
-    let filme = filmes[ver];
+            generoFilme.innerHTML =
+                "Gênero: " + filme.genero;
 
-    imgFilme.src = filme.img;
-    tituloFilme.innerHTML = filme.titulo;
-    dataFilme.innerHTML = "Ano: " + filme.data;
-    generoFilme.innerHTML = "Gênero: " + filme.genero;
-    diretorFilme.innerHTML = "Diretor: " + filme.diretor;
-    elencoFilme.innerHTML = "Elenco: " + filme.elenco;
-    enredoFilme.innerHTML = filme.enredo;
-    curiosidadesFilme.innerHTML = filme.curiosidades;
-    impactoFilme.innerHTML = filme.impacto;
-    parecidosFilme.innerHTML = filme.parecidos;
-}
+            diretorFilme.innerHTML =
+                "Diretor: " + filme.diretor;
 
+            elencoFilme.innerHTML =
+                "Elenco: " + filme.elenco;
 
-function limpar() {
+            enredoFilme.innerHTML =
+                filme.enredo;
 
-    imgFilme.src = "";
-    tituloFilme.innerHTML = "";
-    dataFilme.innerHTML = "";
-    generoFilme.innerHTML = "";
-    diretorFilme.innerHTML = "";
-    elencoFilme.innerHTML = "";
-    enredoFilme.innerHTML = "";
-    curiosidadesFilme.innerHTML = "";
-    impactoFilme.innerHTML = "";
-    parecidosFilme.innerHTML = "";
-}
+            curiosidadesFilme.innerHTML =
+                filme.curiosidades;
 
-</script>
+            impactoFilme.innerHTML =
+                filme.impacto;
+
+            parecidosFilme.innerHTML =
+                filme.parecidos;
+        }
+
+        function limpar() {
+
+            imgFilme.src = "";
+
+            tituloFilme.innerHTML = "";
+
+            dataFilme.innerHTML = "";
+
+            generoFilme.innerHTML = "";
+
+            diretorFilme.innerHTML = "";
+
+            elencoFilme.innerHTML = "";
+
+            enredoFilme.innerHTML = "";
+
+            curiosidadesFilme.innerHTML = "";
+
+            impactoFilme.innerHTML = "";
+
+            parecidosFilme.innerHTML = "";
+        }
+
+    </script>
+
 </body>
+
 </html>
