@@ -42,7 +42,7 @@
                 <span onclick="votarAliens(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('aliens')">CONTINUE EXPLORANDO</button>
+            
         </div>
 
         <div class="filme">
@@ -56,7 +56,7 @@
                 <span onclick="votarChuck(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('chuck')">CONTINUE EXPLORANDO</button>
+           
         </div>
 
         <div class="filme">
@@ -70,7 +70,7 @@
                 <span onclick="votarDonnie(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('donnie')">CONTINUE EXPLORANDO</button>
+            
         </div>
 
         <div class="filme">
@@ -84,7 +84,7 @@
                 <span onclick="votarExorcista(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('exorcista')">CONTINUE EXPLORANDO</button>
+            
         </div>
 
         <div class="filme">
@@ -98,7 +98,7 @@
                 <span onclick="votarGremlins(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('grenlins')">CONTINUE EXPLORANDO</button>
+            
         </div>
 
         <div class="filme">
@@ -112,7 +112,7 @@
                 <span onclick="votarHalloween(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('halloween')">CONTINUE EXPLORANDO</button>
+            
         </div>
 
         <div class="filme">
@@ -126,7 +126,7 @@
                 <span onclick="votarHellraiser(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('hellraiser')">CONTINUE EXPLORANDO</button>
+     
         </div>
 
         <div class="filme">
@@ -140,7 +140,7 @@
                 <span onclick="votarScream(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('scream')">CONTINUE EXPLORANDO</button>
+
         </div>
 
         <div class="filme">
@@ -154,12 +154,12 @@
                 <span onclick="votarTubarao(5)">★</span>
             </div>
 
-            <button onclick="irDetalhes('tubarao')">CONTINUE EXPLORANDO</button>
         </div>
 
     </div>
 
-    <button class="botao-registrar" onclick="registrar()">REGISTRAR</button>
+    <button class="botao-registrar" onclick="registrar()">REGISTRAR NOTAS</button>
+        <button onclick="irDetalhes()">CONTINUE EXPLORANDO</button>
 
     <div class="rodape">
         <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
@@ -246,49 +246,116 @@
 
         function registrar() {
 
-            let idUsuario = sessionStorage.ID_USUARIO
+    let idUsuario = sessionStorage.ID_USUARIO
 
-            if (!idUsuario) {
-                alert("Faça login antes de registrar.")
-                return
-            }
+    if (!idUsuario) {
 
-            let filmes = []
+        alert("Faça login antes de registrar.")
+        return
 
-            if (notaAliens > 0) filmes.push(1)
-            if (notaChuck > 0) filmes.push(2)
-            if (notaDonnie > 0) filmes.push(3)
-            if (notaExorcista > 0) filmes.push(4)
-            if (notaGremlins > 0) filmes.push(5)
-            if (notaHalloween > 0) filmes.push(6)
-            if (notaHellraiser > 0) filmes.push(7)
-            if (notaScream > 0) filmes.push(8)
-            if (notaTubarao > 0) filmes.push(9)
+    }
 
-            fetch("/votos/registrar", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    idUsuarioServer: idUsuario,
-                    filmes: filmes
-                })
-            })
-            .then(function (resposta) {
+    let filmes = []
 
-                if (resposta.ok) {
-                    alert("Votos registrados!")
-                } else {
-                    alert("Erro ao registrar votos")
-                }
+    if (notaAliens > 0) {
+        filmes.push({
+            idFilme: 1,
+            nota: notaAliens
+        })
+    }
 
-            })
-            .catch(function (erro) {
-                console.log(erro)
-            })
+    if (notaChuck > 0) {
+        filmes.push({
+            idFilme: 2,
+            nota: notaChuck
+        })
+    }
+
+    if (notaDonnie > 0) {
+        filmes.push({
+            idFilme: 3,
+            nota: notaDonnie
+        })
+    }
+
+    if (notaExorcista > 0) {
+        filmes.push({
+            idFilme: 4,
+            nota: notaExorcista
+        })
+    }
+
+    if (notaGremlins > 0) {
+        filmes.push({
+            idFilme: 5,
+            nota: notaGremlins
+        })
+    }
+
+    if (notaHalloween > 0) {
+        filmes.push({
+            idFilme: 6,
+            nota: notaHalloween
+        })
+    }
+
+    if (notaHellraiser > 0) {
+        filmes.push({
+            idFilme: 7,
+            nota: notaHellraiser
+        })
+    }
+
+    if (notaScream > 0) {
+        filmes.push({
+            idFilme: 8,
+            nota: notaScream
+        })
+    }
+
+    if (notaTubarao > 0) {
+        filmes.push({
+            idFilme: 9,
+            nota: notaTubarao
+        })
+    }
+
+    fetch("/votos/registrar", {
+
+        method: "POST",
+
+        headers: {
+            "Content-Type": "application/json"
+        },
+
+        body: JSON.stringify({
+            idUsuarioServer: idUsuario,
+            filmes: filmes
+        })
+
+    })
+
+    .then(function (resposta) {
+
+        if (resposta.ok) {
+
+            alert("Votos registrados!")
+
+        } else {
+
+            alert("Erro ao registrar votos")
+
         }
 
+    })
+
+    .catch(function (erro) {
+
+        console.log(erro)
+
+    })
+
+}
         function irDetalhes(filme) {
             sessionStorage.FILME_ATUAL = filme
             window.location.href = "detalhes.html"

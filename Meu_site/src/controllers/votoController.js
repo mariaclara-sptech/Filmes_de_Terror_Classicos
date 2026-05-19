@@ -1,23 +1,17 @@
 let votoModel = require("../models/votoModel");
 
-function registrar(req, res) {
-    let idUsuario = Number(req.body.idUsuarioServer);
-    let filmes = req.body.filmes;
 
-    if (idUsuario == undefined || filmes == undefined) {
-        res.status(400).send("Dados inválidos!");
-    } else {
-        votoModel.registrar(idUsuario, filmes)
-            .then(function (resultado) {
-                res.json(resultado);
-            })
-            .catch(function (erro) {
-                console.log(erro);
-                console.log("\nHouve um erro ao registrar o voto! Erro: ", erro.sqlMessage);
-                res.status(500).json(erro.sqlMessage);
-            });
-    }
+    function registrar(req, res) {
+
+    let idUsuario = req.body.idUsuarioServer
+    let filmes = req.body.filmes
+
+    votoModel.registrar(idUsuario, filmes)
+
+    res.status(200).send("Votos registrados")
+
 }
+
 
 function obterTodos(req, res) {
     votoModel.obterTodos()
@@ -47,20 +41,19 @@ function obterPorUsuario(req, res) {
     }
 }
 
-function obterMediaFilmes(req, res) {
-    votoModel.obterMediaFilmes()
+function mediaFilmes(req, res) {
+
+    votoModel.mediaFilmes()
+
         .then(function (resultado) {
-            res.json(resultado);
+            res.json(resultado)
         })
-        .catch(function (erro) {
-            console.log(erro);
-            res.status(500).json(erro.sqlMessage);
-        });
+
 }
 
 module.exports = {
     registrar,
     obterTodos,
     obterPorUsuario,
-    obterMediaFilmes
+    mediaFilmes
 };

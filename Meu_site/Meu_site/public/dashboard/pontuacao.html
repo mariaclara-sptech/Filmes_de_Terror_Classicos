@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Vintage Frights | Dados Votação</title>
+
+    <link rel="stylesheet" href="../css/pontuacao.css">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap"
+        rel="stylesheet">
+
+    <script src="/js/sessao.js"></script>
+
+</head>
+
+<body onload="carregarPagina()">
+
+    <div class="sidebar">
+
+        <div>
+
+            <div class="logo">
+
+                <img src="/assets/img/logo.png" class="logo-img">
+
+                <h1>Vintage Frights</h1>
+
+            </div>
+
+            <div class="menu">
+
+                <a href="./dashboard.html">
+                    DASHBOARD
+                </a>
+
+                <a href="./pontuacao.html" class="ativo">
+                    DADOS VOTACAO
+                </a>
+
+                <a href="../detalhes.html">
+                    INFORMACOES
+                </a>
+
+            </div>
+
+        </div>
+
+        <a href="/linha.html">
+            <button>SAIR</button>
+        </a>
+
+    </div>
+
+    <div class="main">
+
+        <h1 class="titulo">
+            DADOS DE VOTAÇÃO
+        </h1>
+
+        <div id="cardsFilmes" class="cards-filmes"></div>
+
+    </div>
+   
+
+<script>
+
+    function carregarPagina() {
+
+        validarSessao()
+
+        carregarCards()
+    }
+
+    function carregarCards() {
+
+        let idUsuario = sessionStorage.ID_USUARIO
+
+        Promise.all([
+
+            fetch(`/votos/usuario/${idUsuario}`)
+                .then(function(resposta) {
+                    return resposta.json()
+                }),
+
+            fetch(`/votos/media/filmes`)
+                .then(function(resposta) {
+                    return resposta.json()
+                })
+
+        ])
+
+        .then(function(respostas) {
+
+            let votosUsuario = respostas[0]
+
+            let votosMedia = respostas[1]
+
+            let filmes = [
+
+                {
+                    nome:"Alien",
+                    img:"../assets/img/filme.aliens.jpg"
+                },
+
+                {
+                    nome:"Chuck",
+                    img:"../assets/img/filme.chuck.jpg"
+                },
+
+                {
+                    nome:"Donnie Darko",
+                    img:"../assets/img/filme.donnie.jpg"
+                },
+
+                {
+                    nome:"O Exorcista",
+                    img:"../assets/img/filme.exorcista.jpg"
+                },
+
+                {
+                    nome:"Gremlins",
+                    img:"../assets/img/filme.grenlis.jpg"
+                },
+
+                {
+                    nome:"Halloween",
+                    img:"../assets/img/filme.halloween.jpg"
+                },
+
+                {
+                    nome:"Hellraiser",
+                    img:"../assets/img/filme.hellraiser.jpg"
+                },
+
+                {
+                    nome:"Scream",
+                    img:"../assets/img/filme.scream.jpg"
+                },
+
+                {
+                    nome:"Tubarão",
+                    img:"../assets/img/filme.tubarao.jpg"
+                }
+
+            ]
+
+            cardsFilmes.innerHTML = ""
+
+            for(let i = 0; i < filmes.length; i++) {
+
+                let notaUsuario = 0
+                let notaComunidade = 0
+
+                for(let j = 0; j < votosUsuario.length; j++) {
+
+                    if(votosUsuario[j].nome == filmes[i].nome) {
+
+                        notaUsuario++
+                    }
+                }
+
+                for(let j = 0; j < votosMedia.length; j++) {
+
+                    if(votosMedia[j].filme == filmes[i].nome) {
+
+                        notaComunidade = votosMedia[j].totalVotos
+                    }
+                }
+
+                cardsFilmes.innerHTML += `
+
+                    <div class="card-filme">
+
+                        <img src="${filmes[i].img}">
+
+                        <h2>${filmes[i].nome}</h2>
+
+                        <div class="notas">
+
+                            <p>
+                                SUA NOTA
+                            </p>
+
+                            <span>
+                                ${notaUsuario} ★
+                            </span>
+
+                            <p>
+                                COMUNIDADE
+                            </p>
+
+                            <span>
+                                ${notaComunidade} ★
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                `
+            }
+
+        })
+
+    }
+
+</script>
+
+</body>
+
+</html>

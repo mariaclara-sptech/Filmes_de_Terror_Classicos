@@ -1,30 +1,32 @@
 let database = require("../database/config");
 
+
 function registrar(idUsuario, filmes) {
 
-    let deleteSql = `
+    let sqlDelete = `
         DELETE FROM votos
-        WHERE fkUsuario = ${idUsuario};
-    `;
+        WHERE fkUsuario = ${idUsuario}
+    `
 
-    return database.executar(deleteSql)
-        .then(() => {
+    database.executar(sqlDelete)
 
-            let promessas = [];
+    for (let i = 0; i < filmes.length; i++) {
 
-            for (let i = 0; i < filmes.length; i++) {
+        let sqlInsert = `
+            INSERT INTO votos (fkUsuario, fkFilme, nota)
+            VALUES (
+                ${idUsuario},
+                ${filmes[i].idFilme},
+                ${filmes[i].nota}
+            )
+        `
 
-                let insertSql = `
-                    INSERT INTO votos (fkUsuario, fkFilme)
-                    VALUES (${idUsuario}, ${filmes[i]});
-                `;
+        database.executar(sqlInsert)
 
-                promessas.push(database.executar(insertSql));
-            }
+    }
 
-            return Promise.all(promessas);
-        });
 }
+
 
 function obterTodos() {
 
@@ -32,7 +34,8 @@ function obterTodos() {
         SELECT 
             v.id,
             u.nome AS usuario,
-            f.nome AS filme
+            f.nome AS filme,
+            v.nota
         FROM votos v
         JOIN usuario u
             ON v.fkUsuario = u.id
@@ -41,6 +44,7 @@ function obterTodos() {
     `;
 
     return database.executar(instrucaoSql);
+
 }
 
 function obterPorUsuario(idUsuario) {
@@ -48,7 +52,8 @@ function obterPorUsuario(idUsuario) {
     let instrucaoSql = `
         SELECT 
             f.id,
-            f.nome
+            f.nome,
+            v.nota
         FROM votos v
         JOIN filme f
             ON v.fkFilme = f.id
@@ -56,27 +61,28 @@ function obterPorUsuario(idUsuario) {
     `;
 
     return database.executar(instrucaoSql);
+
 }
 
-function obterMediaFilmes() {
+function mediaFilmes() {
 
     let instrucaoSql = `
-        SELECT 
-            f.nome AS filme,
-            COUNT(v.id) AS totalVotos
-        FROM filme f
-        LEFT JOIN votos v
-            ON f.id = v.fkFilme
-        GROUP BY f.id
-        ORDER BY totalVotos DESC;
-    `;
+        SELECT
+            filme.nome AS filme,
+            AVG(votos.nota) AS media
+        FROM votos
+        JOIN filme
+            ON votos.fkFilme = filme.id
+        GROUP BY filme.nome
+    `
 
-    return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql)
+
 }
 
 module.exports = {
     registrar,
     obterTodos,
     obterPorUsuario,
-    obterMediaFilmes
+    mediaFilmes
 };

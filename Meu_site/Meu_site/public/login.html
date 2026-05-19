@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vintage Frights | Login</title>
+
+    <script src="/js/sessao.js"></script>
+
+    <link rel="stylesheet" href="/css/login.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+<div class="menu">
+    <div class="logo">VINTAGE FRIGHTS</div>
+
+    <div class="botoes">
+<a href="/index.html">
+        <span>Início</span>
+        </a>
+        <a href="/login.html">
+        <span>Login</span>
+        </a>
+        <a href="/cadastro.html">
+        <span>Cadastro</span>
+        </a>
+
+    </div>
+</div>
+
+<div class="login">
+
+    <div class="card">
+
+        <img src="assets/img/logo.png" alt="">
+
+        <div class="campo">
+            <span>E-MAIL</span>
+            <input id="email_input" type="text">
+        </div>
+
+        <div class="campo">
+            <span>SENHA</span>
+            <input id="senha_input" type="password">
+        </div>
+            
+        <button class="botao" onclick="entrar()">Entrar</button>
+           
+        <p class="cadastro"> NÃO POSSUI CONTA?
+            <a  href="cadastro.html">
+                <span>CADASTRE-SE</span>
+            </a>
+        </p>
+
+    </div>
+
+
+    <div id="div_aguardar" class="loading-div">
+       
+
+</div>
+</div>
+
+
+<div class="rodape">
+    <h2 class="titulo-rodape">VINTAGE FRIGHTS</h2>
+
+    <p class="frase-rodape">
+        “O medo nunca envelhece… ele evolui.”
+    </p>
+
+    <div class="info-rodape">
+        <p>DIREÇÃO: MARIA CLARA | ANO: 2026</p>
+        <p>VINTAGE FRIGHTS © PROJETO INDIVIDUAL SPTECH</p>
+    </div>
+</div>
+
+</body>
+
+<script>
+    /* Ultilizei a funcao entrar para criar as validacoes */
+function entrar() {
+    let email = email_input.value.trim();
+    let senha = senha_input.value.trim();
+
+
+    let regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+    let regexSenha = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]$/;
+
+
+
+    if (email == "" || senha== "") {
+        alert("Preencha todos os campos");
+        return false;
+    }
+
+    if (!regexEmail.test(email)) {
+        alert("E-mail inválido. Ex: exemplo@email.com");
+        return false;
+    }
+
+    if (email.includes(" ")) {
+        alert("O e-mail não pode conter espaços");
+        return false;
+    }
+
+    // if (!regexSenha.test(senha)) {
+    //     alert("A senha deve ter no mínimo 6 caracteres, com letras e números");
+    //     return false;
+    // }
+
+
+    fetch("http://localhost:3333/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailServer: email,
+            senhaServer: senha
+        })
+    })
+    .then(res => {
+        if (!res.ok) {
+            throw new Error("Email ou senha inválidos");
+        }
+        return res.json();
+    })
+    .then(json => {
+        sessionStorage.NOME_USUARIO = json.nome;
+        sessionStorage.EMAIL_USUARIO = json.email;
+        sessionStorage.ID_USUARIO = json.id;
+        window.location = "linha.html";
+    })
+    .catch(err => {
+        alert(err.message);
+    });
+}
+</script>
+
+</html>

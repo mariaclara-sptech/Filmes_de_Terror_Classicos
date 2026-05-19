@@ -15,8 +15,9 @@ CREATE TABLE filme (
 );
 
 CREATE TABLE votos (
-    id INT PRIMARY KEY AUTO_INCREMENT,
 
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    nota INT,
     fkUsuario INT,
     fkFilme INT,
 
@@ -30,6 +31,7 @@ CREATE TABLE votos (
     CONSTRAINT fkVotoFilme
         FOREIGN KEY (fkFilme)
         REFERENCES filme(id)
+
 );
 
 CREATE TABLE quiz (
@@ -58,3 +60,4 @@ SELECT * FROM usuario;
 SELECT * FROM filme;
 SELECT * FROM votos;
 SELECT * FROM quiz;
+

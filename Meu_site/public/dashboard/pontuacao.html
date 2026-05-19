@@ -159,7 +159,10 @@
 
                     if(votosUsuario[j].nome == filmes[i].nome) {
 
-                        notaUsuario++
+                        if(votosUsuario[j].nome == filmes[i].nome) {
+
+    notaUsuario = votosUsuario[j].nota
+}
                     }
                 }
 
@@ -167,7 +170,7 @@
 
                     if(votosMedia[j].filme == filmes[i].nome) {
 
-                        notaComunidade = votosMedia[j].totalVotos
+                        notaComunidade = votosMedia[j].media
                     }
                 }
 
