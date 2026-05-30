@@ -64,12 +64,12 @@ function obterPorUsuario(idUsuario) {
 
 }
 
-function mediaFilmes() {
+function obterMediaFilmes() {
 
     let instrucaoSql = `
         SELECT
             filme.nome AS filme,
-            AVG(votos.nota) AS media
+            ROUND(AVG(votos.nota),1) AS media
         FROM votos
         JOIN filme
             ON votos.fkFilme = filme.id
@@ -84,5 +84,5 @@ module.exports = {
     registrar,
     obterTodos,
     obterPorUsuario,
-    mediaFilmes
+    obterMediaFilmes
 };

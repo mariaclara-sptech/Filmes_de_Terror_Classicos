@@ -41,19 +41,18 @@ function obterPorUsuario(req, res) {
     }
 }
 
-function mediaFilmes(req, res) {
+function obterMediaFilmes(req, res) {
 
-    votoModel.mediaFilmes()
+    votoModel.obterMediaFilmes()
 
         .then(function (resultado) {
             res.json(resultado)
         })
 
 }
-
 module.exports = {
     registrar,
     obterTodos,
     obterPorUsuario,
-    mediaFilmes
+    obterMediaFilmes
 };

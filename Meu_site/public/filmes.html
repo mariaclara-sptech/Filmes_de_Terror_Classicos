@@ -7,6 +7,7 @@
     <title>Vintage Frights | Filmes</title>
 
     <link rel="stylesheet" href="./css/votacao.css">
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
 
     <link
         href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Playfair+Display:ital@0;1&display=swap"
@@ -23,7 +24,7 @@
             <a href="/quiz.html"><span>Quiz</span></a>
             <a href="/filmes.html"><span>Filmes</span></a>
             <a href="/linha.html"><span>Linha do Tempo</span></a>
-            <a href="/dashboard/dashboard.html"><span>Area do usuario</span></a>
+            <a href="/dashboard/dashboard.html"><span>Área do Usuário</span></a>
         </div>
     </div>
 
@@ -144,18 +145,30 @@
         </div>
 
         <div class="filme">
-            <img src="assets/img/filme.tubarao.jpg">
+            <img src="assets/img/godzilla.linha.jpg">
 
-            <div class="estrelas tubarao">
-                <span onclick="votarTubarao(1)">★</span>
-                <span onclick="votarTubarao(2)">★</span>
-                <span onclick="votarTubarao(3)">★</span>
-                <span onclick="votarTubarao(4)">★</span>
-                <span onclick="votarTubarao(5)">★</span>
+            <div class="estrelas godzilla ">
+                <span onclick="votargodzilla(1)">★</span>
+                <span onclick="votargodzilla(2)">★</span>
+                <span onclick="votargodzilla(3)">★</span>
+                <span onclick="votargodzilla(4)">★</span>
+                <span onclick="votargodzilla(5)">★</span>
             </div>
 
         </div>
+       
+        <div class="filme">
+            <img src="assets/img/frankenstein.linha.jpg">
 
+            <div class="estrelas frankenstein">
+                <span onclick="votarfrankenstein(1)">★</span>
+                <span onclick="votarfrankenstein(2)">★</span>
+                <span onclick="votarfrankenstein(3)">★</span>
+                <span onclick="votarfrankenstein(4)">★</span>
+                <span onclick="votarfrankenstein(5)">★</span>
+            </div>
+
+    </div>
     </div>
 
     <button class="botao-registrar" onclick="registrar()">REGISTRAR NOTAS</button>
@@ -173,6 +186,7 @@
             <p>VINTAGE FRIGHTS © PROJETO INDIVIDUAL SPTECH</p>
         </div>
     </div>
+    
 
     <script>
 
@@ -185,6 +199,8 @@
         let notaHellraiser = 0
         let notaScream = 0
         let notaTubarao = 0
+        let notagodzilla = 0
+        let notafrankenstein = 0
 
         function pintar(classe, nota) {
 
@@ -197,6 +213,16 @@
             for (let i = 0; i < nota; i++) {
                 selecionar[i].className = "ativa"
             }
+        }
+
+        function votargodzilla(vnota) {
+            notagodzilla = vnota
+            pintar("godzilla", vnota)
+        }
+
+        function votarfrankenstein(vnota) {
+            notafrankenstein = vnota
+            pintar("frankenstein", vnota)
         }
 
         function votarAliens(vnota) {
@@ -257,6 +283,7 @@
 
     let filmes = []
 
+    
     if (notaAliens > 0) {
         filmes.push({
             idFilme: 1,
@@ -319,6 +346,21 @@
             nota: notaTubarao
         })
     }
+     if (notagodzilla > 0) {
+        filmes.push({
+            idFilme: 10,
+            nota: notagodzilla
+        })
+    }
+        if (notafrankenstein > 0) {
+        filmes.push({
+            idFilme: 11,
+            nota: notafrankenstein
+        })
+    }
+   
+
+
 
     fetch("/votos/registrar", {
 

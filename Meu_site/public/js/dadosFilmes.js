@@ -30,6 +30,36 @@ let filmes = [
       "Quebrou o padrão do terror tradicional ao explorar temas filosóficos e perturbadores ligados ao prazer e à dor. Influenciou o horror mais extremo e visual que surgiria nos anos seguintes.",
     parecidos: ["Event Horizon", " O Enigma de Outro Mundo"],
   },
+  {
+    titulo: "Frankenstein",
+    data: "1910",
+    genero: "Terror",
+    diretor: "J. Searle Dawley",
+    elenco: "Edward Van Sloan",
+    img: "assets/img/frankenstein.linha.jpg",
+    enredo:
+      "O curta-metragem mudo de 1910, produzido pelos Edison Studios, é a primeira adaptação cinematográfica da obra de Mary Shelley. A trama foca no estudante Victor Frankenstein, que tenta criar o ser humano perfeito em laboratório, mas dá vida a um monstro deformado que se volta contra ele",
+    curiosidades:
+      "O filme Frankenstein (1910), produzido pela lendária Edison Studios, é o primeiro longa-metragem/curta de terror que adaptou a obra de Mary Shelley para o cinema. Com apenas cerca de 15 minutos de duração, a produção tem como principal curiosidade o fato de ter sido considerada perdida por décadas, sendo redescoberta apenas nos anos 1950.",
+    impacto:
+      "nauguração do Terror no Cinema: O filme estabeleceu as fundações do gênero de horror nas telas, explorando temas como a obsessão humana, a repulsa pelo diferente e os limites da ciência.",
+    parecidos: ["O Gabinete do Dr. Caligari", " A Noiva de Frankenstein "],
+  },
+  {
+    titulo: "Godzilla",
+    data: "1954",
+    genero: "Terror",
+    diretor: "Ishirō Honda",
+    elenco: "Hideto Ogata",
+    img: "assets/img/godzilla.linha.jpg",
+    enredo:
+      "Um gigantesco réptil mutante com 50 metros de altura surge em virtude de testes nucleares. A monstruosa criatura cria um rastro de destruição no seu caminho até Tóquio, que corre o risco de ser totalmente destruída se o monstro, imenso como um dinossauro, não for detido. Cabe às autoridades conter o pânico da população e tentar deter ou, em última instância, matar o que ameaça a cidade.",
+    curiosidades:
+      "O clássico filme de 1954 foi muito mais do que um filme de monstros. Ele surgiu como uma forte crítica e metáfora da sociedade japonesa ao trauma das bombas atômicas lançadas em Hiroshima e Nagasaki, além de homenagear as vítimas de testes nucleares no Pacífico.",
+    impacto:
+      "Teve um impacto profundo e duradouro, transformando-se em uma poderosa alegoria para o trauma do pós-guerra no Japão. O monstro surgiu como a personificação cinematográfica do terror nuclear e das bombas atômicas lançadas em Hiroshima e Nagasaki.",
+    parecidos: ["Gamera: O Guardião do Universo", " Cloverfield - Monstro"],
+  },
 
   {
     titulo: "Pânico",

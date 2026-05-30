@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
 
     <title>Vintage Frights | Dados Votação</title>
+    <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
 
     <link rel="stylesheet" href="../css/pontuacao.css">
 
@@ -38,11 +39,11 @@
                 </a>
 
                 <a href="./pontuacao.html" class="ativo">
-                    DADOS VOTACAO
+                    DADOS VOTAÇÃO
                 </a>
 
                 <a href="../detalhes.html">
-                    INFORMACOES
+                    INFORMAÇÕES
                 </a>
 
             </div>
@@ -64,117 +65,125 @@
         <div id="cardsFilmes" class="cards-filmes"></div>
 
     </div>
-   
 
-<script>
 
-    function carregarPagina() {
+    <script>
 
-        validarSessao()
+        function carregarPagina() {
 
-        carregarCards()
-    }
+            validarSessao()
 
-    function carregarCards() {
+            carregarCards()
+        }
 
-        let idUsuario = sessionStorage.ID_USUARIO
+        function carregarCards() {
 
-        Promise.all([
+            let idUsuario = sessionStorage.ID_USUARIO
 
-            fetch(`/votos/usuario/${idUsuario}`)
-                .then(function(resposta) {
-                    return resposta.json()
-                }),
+            Promise.all([
 
-            fetch(`/votos/media/filmes`)
-                .then(function(resposta) {
-                    return resposta.json()
-                })
+                fetch(`/votos/usuario/${idUsuario}`)
+                    .then(function (resposta) {
+                        return resposta.json()
+                    }),
 
-        ])
+                fetch(`/votos/media/filmes`)
+                    .then(function (resposta) {
+                        return resposta.json()
+                    })
 
-        .then(function(respostas) {
+            ])
 
-            let votosUsuario = respostas[0]
+                .then(function (respostas) {
 
-            let votosMedia = respostas[1]
+                    let votosUsuario = respostas[0]
 
-            let filmes = [
+                    let votosMedia = respostas[1]
 
-                {
-                    nome:"Alien",
-                    img:"../assets/img/filme.aliens.jpg"
-                },
+                    let filmes = [
 
-                {
-                    nome:"Chuck",
-                    img:"../assets/img/filme.chuck.jpg"
-                },
+                        {
+                            nome: "Alien",
+                            img: "../assets/img/filme.aliens.jpg"
+                        },
 
-                {
-                    nome:"Donnie Darko",
-                    img:"../assets/img/filme.donnie.jpg"
-                },
+                        {
+                            nome: "Chuck",
+                            img: "../assets/img/filme.chuck.jpg"
+                        },
 
-                {
-                    nome:"O Exorcista",
-                    img:"../assets/img/filme.exorcista.jpg"
-                },
+                        {
+                            nome: "Donnie Darko",
+                            img: "../assets/img/filme.donnie.jpg"
+                        },
 
-                {
-                    nome:"Gremlins",
-                    img:"../assets/img/filme.grenlis.jpg"
-                },
+                        {
+                            nome: "O Exorcista",
+                            img: "../assets/img/filme.exorcista.jpg"
+                        },
 
-                {
-                    nome:"Halloween",
-                    img:"../assets/img/filme.halloween.jpg"
-                },
+                        {
+                            nome: "Gremlins",
+                            img: "../assets/img/filme.grenlis.jpg"
+                        },
 
-                {
-                    nome:"Hellraiser",
-                    img:"../assets/img/filme.hellraiser.jpg"
-                },
+                        {
+                            nome: "Halloween",
+                            img: "../assets/img/filme.halloween.jpg"
+                        },
 
-                {
-                    nome:"Scream",
-                    img:"../assets/img/filme.scream.jpg"
-                },
+                        {
+                            nome: "Hellraiser",
+                            img: "../assets/img/filme.hellraiser.jpg"
+                        },
 
-                {
-                    nome:"Tubarão",
-                    img:"../assets/img/filme.tubarao.jpg"
-                }
+                        {
+                            nome: "Scream",
+                            img: "../assets/img/filme.scream.jpg"
+                        },
 
-            ]
+                        {
+                            nome: "Tubarão",
+                            img: "../assets/img/filme.tubarao.jpg"
+                        },
+                        {
+                            nome: "Godzilla",
+                            img: "../assets/img/godzilla.linha.jpg"
+                        },
+                        {
+                            nome: "Frankenstein",
+                            img: "../assets/img/frankenstein.linha.jpg"
+                        }
 
-            cardsFilmes.innerHTML = ""
+                    ]
 
-            for(let i = 0; i < filmes.length; i++) {
+                    cardsFilmes.innerHTML = ""
 
-                let notaUsuario = 0
-                let notaComunidade = 0
+                    for (let i = 0; i < filmes.length; i++) {
 
-                for(let j = 0; j < votosUsuario.length; j++) {
+                        let notaUsuario = 0
+                        let notaComunidade = 0
 
-                    if(votosUsuario[j].nome == filmes[i].nome) {
+                        for (let j = 0; j < votosUsuario.length; j++) {
 
-                        if(votosUsuario[j].nome == filmes[i].nome) {
+                            if (votosUsuario[j].nome == filmes[i].nome) {
 
-    notaUsuario = votosUsuario[j].nota
-}
-                    }
-                }
+                                if (votosUsuario[j].nome == filmes[i].nome) {
 
-                for(let j = 0; j < votosMedia.length; j++) {
+                                    notaUsuario = votosUsuario[j].nota
+                                }
+                            }
+                        }
 
-                    if(votosMedia[j].filme == filmes[i].nome) {
+                        for (let j = 0; j < votosMedia.length; j++) {
 
-                        notaComunidade = votosMedia[j].media
-                    }
-                }
+                            if (votosMedia[j].filme == filmes[i].nome) {
 
-                cardsFilmes.innerHTML += `
+                                notaComunidade = votosMedia[j].media
+                            }
+                        }
+
+                        cardsFilmes.innerHTML += `
 
                     <div class="card-filme">
 
@@ -205,13 +214,13 @@
                     </div>
 
                 `
-            }
+                    }
 
-        })
+                })
 
-    }
+        }
 
-</script>
+    </script>
 
 </body>
 

@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vintage Frights | Cadastro</title>
+    
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
 
     <script src="/js/sessao.js"></script>
 
@@ -96,7 +98,7 @@ function cadastrar() {
     }
 
 
-    fetch("http://localhost:3333/usuarios/cadastrar", {
+    fetch("http://localhost:8080/usuarios/cadastrar", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

@@ -81,17 +81,15 @@ a{
     cursor: pointer;
 }
 
-.opcao:hover {
-    background: #8b0000;
+ button:hover {
+    background-color: rgb(173, 2, 2);
+}
+button:focus{
+    background-color: rgb(173, 2, 2);
 }
 
-
-.correta {
-    background: green;
-}
-
-.errada {
-    background: darkred;
+#btnProx:active {
+    background-color: rgb(173, 2, 2);
 }
 
 button {
@@ -107,7 +105,25 @@ button {
     cursor: pointer;
 }
 
-button:active {
+.btn {
+    margin-top: 20px;
+    padding: 15px;
+    position: relative;
+    top: 30px;
+
+    background: transparent;
+    border: 1px solid #8b0000;
+
+    color: white;
+    font-family: 'Cinzel', serif;
+
+    cursor: pointer;
+}
+
+
+
+
+.active:active{
     background-color: rgb(173, 2, 2);
 }
 

@@ -6,7 +6,7 @@ body{
 
     font-family:'Cinzel', serif;
 
-    w-x:hidden;
+    white-space:hidden;
 }
 
 *{
@@ -195,7 +195,7 @@ body{
     margin-top:15px;
 }
 
-/* NOTAS */
+
 
 .notas{
 
