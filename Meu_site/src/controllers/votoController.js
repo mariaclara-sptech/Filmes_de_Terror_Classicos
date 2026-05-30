@@ -9,6 +9,10 @@ let votoModel = require("../models/votoModel");
     votoModel.registrar(idUsuario, filmes)
 
     res.status(200).send("Votos registrados")
+    
+
+    console.log("ID USUARIO:", idUsuario)
+    console.log("FILMES:", filmes)
 
 }
 
@@ -47,6 +51,10 @@ function obterMediaFilmes(req, res) {
 
         .then(function (resultado) {
             res.json(resultado)
+        })
+        .catch(function (erro) {
+            console.log(erro)
+            res.status(500).json({ erro: erro.sqlMessage })
         })
 
 }

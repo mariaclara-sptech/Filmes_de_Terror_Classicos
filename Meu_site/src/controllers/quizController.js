@@ -1,31 +1,24 @@
 var quizModel = require("../models/quizModel");
 var usuarioModel = require("../models/usuarioModel");
 
-function registrar(req, res) {
-    var idUsuario = req.body.idUsuarioServer;
-    var pontuacao = req.body.pontuacaoServer;
+async function registrar(req, res) {
 
-    if (idUsuario == undefined) {
-        res.status(400).send("Seu idUsuario está undefined!");
-    } else if (pontuacao == undefined) {
-        res.status(400).send("Sua pontuacao está undefined!");
-    } else {
-        quizModel.registrar(idUsuario, pontuacao)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao registrar o quiz! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
+    let idUsuario = req.body.idUsuarioServer
+    let filmes = req.body.filmes
+
+    try {
+
+        await votoModel.registrar(idUsuario, filmes)
+
+        res.status(200).send("Votos registrados")
+
+    } catch (erro) {
+
+        console.log(erro)
+        res.status(500).send(erro.sqlMessage)
+
     }
+
 }
 
 function obterTodos(req, res) {

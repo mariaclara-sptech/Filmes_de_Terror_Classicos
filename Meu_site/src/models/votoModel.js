@@ -69,11 +69,12 @@ function obterMediaFilmes() {
     let instrucaoSql = `
         SELECT
             filme.nome AS filme,
-            ROUND(AVG(votos.nota),1) AS media
+            ROUND(AVG(votos.nota), 1) AS media
         FROM votos
         JOIN filme
             ON votos.fkFilme = filme.id
-        GROUP BY filme.nome
+        GROUP BY filme.id, filme.nome
+        ORDER BY media DESC
     `
 
     return database.executar(instrucaoSql)

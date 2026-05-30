@@ -54,7 +54,9 @@ INSERT INTO filme (nome) VALUES
 ('Halloween'),
 ('Hellraiser'),
 ('Scream'),
-('Tubarão');
+('Tubarão'),
+('Frankenstein'),
+('Godzilla');
 
 SELECT * FROM usuario;
 SELECT * FROM filme;
