@@ -38,11 +38,11 @@
 </div>
 
     <div >
-<a class="active btn" id="btnProx" onclick="proxima()">PRÓXIMA</a>
-<button id="btnReiniciar" onclick="reiniciar()" hidden>REINICIAR</button>
+        <a class="active btn" id="btnProx" onclick="proxima()">PRÓXIMA</a>
+        <a class="active btn" id="btnReiniciar" onclick="location.reload()" hidden>REINICIAR</a>
 
         <div id="resultado" class="resultado"></div>
-</div>
+    </div>
     </div>
 </div>
 <div class="rodape">
@@ -104,18 +104,7 @@ function proxima() {
     }
 }
 
-function reiniciar(){
-    atual = 0
-    pontuacao = 0
-    pontuacoesPorQuestao = []
 
-    resultado.innerHTML = ""
-
-    btnReiniciar.hidden = true
-    btnProx.hidden = false
-
-    carregar()
-}
 
 function finalizar(){
     sessionStorage.setItem('QUIZ_PONTUACOES', JSON.stringify(pontuacoesPorQuestao))

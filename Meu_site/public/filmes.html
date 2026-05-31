@@ -169,6 +169,19 @@
             </div>
 
     </div>
+    <div class="filme">
+            <img src="assets/img/filme.tubarao.jpg">
+
+            <div class="estrelas tubarao">
+                <span onclick="votarTubarao(1)">★</span>
+                <span onclick="votarTubarao(2)">★</span>
+                <span onclick="votarTubarao(3)">★</span>
+                <span onclick="votarTubarao(4)">★</span>
+                <span onclick="votarTubarao(5)">★</span>
+            </div>
+
+           
+        </div>
     </div>
 
     <button class="botao-registrar" onclick="registrar()">REGISTRAR NOTAS</button>
@@ -381,19 +394,27 @@
 
         if (resposta.ok) {
 
-            alert("Votos registrados!")
+            return resposta.json()
 
         } else {
 
-            alert("Erro ao registrar votos")
+            throw new Error("Erro ao registrar votos")
 
         }
 
     })
 
+    .then(function (dados) {
+
+        alert("✓ Votos registrados com sucesso!")
+        console.log(dados)
+
+    })
+
     .catch(function (erro) {
 
-        console.log(erro)
+        alert("✗ Erro ao registrar votos: " + erro.message)
+        console.error(erro)
 
     })
 

@@ -1,19 +1,20 @@
 let votoModel = require("../models/votoModel");
 
-
-    function registrar(req, res) {
-
+function registrar(req, res) {
     let idUsuario = req.body.idUsuarioServer
     let filmes = req.body.filmes
-
-    votoModel.registrar(idUsuario, filmes)
-
-    res.status(200).send("Votos registrados")
-    
 
     console.log("ID USUARIO:", idUsuario)
     console.log("FILMES:", filmes)
 
+    votoModel.registrar(idUsuario, filmes)
+        .then(function () {
+            res.status(200).json({ mensagem: "Votos registrados com sucesso" })
+        })
+        .catch(function (erro) {
+            console.log("Erro ao registrar votos:", erro)
+            res.status(500).json({ erro: erro.sqlMessage || "Erro ao registrar votos" })
+        })
 }
 
 

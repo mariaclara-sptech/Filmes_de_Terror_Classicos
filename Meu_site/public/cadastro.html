@@ -115,6 +115,7 @@ function cadastrar() {
             window.location = "login.html";
         } else {
             throw "Erro ao cadastrar";
+            alert('Erro ao Cadastrar, email ou senha ja cadastrados');
         }
     })
     .catch(function (erro) {

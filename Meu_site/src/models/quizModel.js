@@ -1,29 +1,15 @@
 var database = require("../database/config");
 
+// Registra uma tentativa de quiz para o usuário, inserindo uma linha
+// na tabela `quiz` com a pontuação obtida.
+function registrar(idUsuario, pontuacao) {
 
-async function registrar(idUsuario, filmes) {
+  var instrucaoSql = `
+    INSERT INTO quiz (fkUsuario, pontuacao)
+    VALUES (${idUsuario}, ${pontuacao});
+  `;
 
-    let sqlDelete = `
-        DELETE FROM votos
-        WHERE fkUsuario = ${idUsuario}
-    `
-
-    await database.executar(sqlDelete)
-
-    for (let i = 0; i < filmes.length; i++) {
-
-        let sqlInsert = `
-            INSERT INTO votos (fkUsuario, fkFilme, nota)
-            VALUES (
-                ${idUsuario},
-                ${filmes[i].idFilme},
-                ${filmes[i].nota}
-            )
-        `
-
-        await database.executar(sqlInsert)
-
-    }
+  return database.executar(instrucaoSql);
 
 }
 
@@ -45,26 +31,24 @@ function obterPorUsuario(idUsuario) {
   return database.executar(instrucaoSql);
 }
 
-function obterRanking(idUsuario) {
-  var instrucaoSql = `
-        SELECT
-    usuario.id,
-    usuario.nome,
-    MAX(quiz.pontuacao) AS pontuacao
-    FROM usuario
-    JOIN quiz
-        ON usuario.id = quiz.fkUsuario
-    GROUP BY usuario.id, usuario.nome
-    ORDER BY pontuacao DESC;
+function obterQuantidadeTentativas(idUsuario) {
+
+    let instrucaoSql = `
+        SELECT COUNT(*) AS quantidadeTentativas
+        FROM quiz
+        WHERE fkUsuario = ${idUsuario};
     `;
 
-  return database.executar(instrucaoSql);
+    return database.executar(instrucaoSql);
+
 }
 
 function obterPontuacaoPorUsuario(idUsuario) {
   console.log("ACESSEI O QUIZ MODEL - obterPontuacaoPorUsuario: ", idUsuario);
   var instrucaoSql = `
-        SELECT COALESCE(pontuacao, 0) AS pontuacao FROM quiz WHERE fkUsuario = '${idUsuario}';
+        SELECT IFNULL(MAX(pontuacao), 0) AS pontuacao
+        FROM quiz
+        WHERE fkUsuario = ${idUsuario};
     `;
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -75,5 +59,5 @@ module.exports = {
   obterTodos,
   obterPorUsuario,
   obterPontuacaoPorUsuario,
-  obterRanking,
+  obterQuantidadeTentativas
 };

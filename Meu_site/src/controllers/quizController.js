@@ -3,20 +3,20 @@ var usuarioModel = require("../models/usuarioModel");
 
 async function registrar(req, res) {
 
-    let idUsuario = req.body.idUsuarioServer
-    let filmes = req.body.filmes
+    let idUsuario = req.body.idUsuarioServer;
+    let pontuacao = req.body.pontuacaoServer;
+
+    if (idUsuario == undefined || pontuacao == undefined) {
+        res.status(400).send("Dados do quiz incompletos");
+        return;
+    }
 
     try {
-
-        await votoModel.registrar(idUsuario, filmes)
-
-        res.status(200).send("Votos registrados")
-
+        await quizModel.registrar(idUsuario, pontuacao);
+        res.status(200).send("Quiz registrado");
     } catch (erro) {
-
-        console.log(erro)
-        res.status(500).send(erro.sqlMessage)
-
+        console.log(erro);
+        res.status(500).send(erro.sqlMessage || erro);
     }
 
 }
@@ -74,15 +74,22 @@ function obterPontuacao(req, res) {
     }
 }
 
-function obterRanking(req, res) {
-    usuarioModel.obterRanking()
-        .then(function (resultado) {
-            res.json(resultado);
+function obterQuantidadeTentativas(req, res) {
+
+    let idUsuario = req.params.idUsuario;
+
+    quizModel.obterQuantidadeTentativas(idUsuario)
+        .then(function(resultado) {
+
+            res.json(resultado[0]);
+
         })
-        .catch(function (erro) {
-            console.log(erro);
-            res.status(500).json(erro.sqlMessage);
+        .catch(function(erro) {
+
+            res.status(500).send(erro);
+
         });
+
 }
 
 module.exports = {
@@ -90,5 +97,5 @@ module.exports = {
     obterTodos,
     obterPorUsuario,
     obterPontuacao,
-    obterRanking
+    obterQuantidadeTentativas
 };

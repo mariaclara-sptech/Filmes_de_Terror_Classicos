@@ -2,29 +2,30 @@ let database = require("../database/config");
 
 
 function registrar(idUsuario, filmes) {
-
     let sqlDelete = `
         DELETE FROM votos
         WHERE fkUsuario = ${idUsuario}
     `
 
-    database.executar(sqlDelete)
-
-    for (let i = 0; i < filmes.length; i++) {
-
-        let sqlInsert = `
-            INSERT INTO votos (fkUsuario, fkFilme, nota)
-            VALUES (
-                ${idUsuario},
-                ${filmes[i].idFilme},
-                ${filmes[i].nota}
-            )
-        `
-
-        database.executar(sqlInsert)
-
-    }
-
+    return database.executar(sqlDelete)
+        .then(function () {
+            // Após deletar, inserir todos os novos votos
+            let promises = []
+            
+            for (let i = 0; i < filmes.length; i++) {
+                let sqlInsert = `
+                    INSERT INTO votos (fkUsuario, fkFilme, nota)
+                    VALUES (
+                        ${idUsuario},
+                        ${filmes[i].idFilme},
+                        ${filmes[i].nota}
+                    )
+                `
+                promises.push(database.executar(sqlInsert))
+            }
+            
+            return Promise.all(promises)
+        })
 }
 
 

@@ -68,13 +68,13 @@
             </div>
 
             <div class="kpi">
-                <span>SUA PONTUAÇÃO NO QUIZ</span>
+                <span>SUA MAIOR PONTUAÇÃO NO QUIZ</span>
                 <h2 id="pontuacaoQuiz">0</h2>
             </div>
 
             <div class="kpi">
-                <span>RANKING</span>
-                <h2 id="rankingQuiz">#0</h2>
+                <span>QUANTIDADE DE TENTATIVAS NO QUIZ</span>
+                <h2 id="quantidadeQuiz">#0</h2>
             </div>
 
         </div>
@@ -127,7 +127,7 @@
 
             validarSessao()
             carregarGraficos()
-            carregarRankingQuiz()
+            carregarQuantidadeTentativas()
             carregarPontuacao()
 
         }
@@ -168,32 +168,28 @@
 
         }
 
-        function carregarRankingQuiz() {
+       function carregarQuantidadeTentativas() {
 
-            fetch("/quiz/ranking")
+    let idUsuario = sessionStorage.getItem('ID_USUARIO');
 
-                .then(function (resposta) {
+        let quantidadeQuizEl = document.getElementById('quantidadeQuiz');
 
-                    return resposta.json()
+        fetch(`/quiz/tentativas/${idUsuario}`)
+            .then(function(resposta) {
+                return resposta.json();
+            })
+            .then(function(dados) {
 
-                })
+                quantidadeQuizEl.innerHTML = '#' + (dados.quantidadeTentativas || 0);
 
-                .then(function (dados) {
+            })
+            .catch(function() {
 
-                    for (let i = 0; i < dados.length; i++) {
+                quantidadeQuizEl.innerHTML = '#0';
 
-                        if (dados[i].nome == sessionStorage.NOME_USUARIO) {
+            });
 
-                            rankingQuiz.innerHTML = `#${i + 1}`
-                            break
-
-                        }
-
-                    }
-
-                })
-
-        }
+}
 
         function carregarGraficos() {
 
@@ -263,11 +259,25 @@
 
                     }
 
-                    filmesUsuario.sort(function (a, b) {
+                    let comunidadeContagem = {}
+                    for (let i = 0; i < votosMedia.length; i++) {
+                        comunidadeContagem[votosMedia[i].filme] = Number(votosMedia[i].media) || 0
+                    }
+
+                    let filmesComunidade = filmes.map(function (nome) {
+                        return {
+                            nome: nome,
+                            media: comunidadeContagem[nome] || 0
+                        }
+                    })
+
+                    // Cria arrays ordenados apenas para exibir o top 3, mas mantém
+                    // filmesUsuario e filmesComunidade na ordem original para o gráfico.
+                    let topUsuarioDados = [...filmesUsuario].sort(function (a, b) {
                         return b.nota - a.nota
                     })
 
-                    favoritoFilme.innerHTML = filmesUsuario[0].nome
+                    favoritoFilme.innerHTML = topUsuarioDados[0].nome
 
                     topUsuario.innerHTML = ""
 
@@ -276,14 +286,14 @@
                         topUsuario.innerHTML += `
                     <p>
                         ${i + 1}. 
-                        ${filmesUsuario[i].nome} 
-                        ★ ${filmesUsuario[i].nota}
+                        ${topUsuarioDados[i].nome} 
+                        ★ ${topUsuarioDados[i].nota}
                     </p>
                 `
 
                     }
 
-                    votosMedia.sort(function (a, b) {
+                    let votosMediaOrdenado = [...votosMedia].sort(function (a, b) {
                         return b.media - a.media
                     })
 
@@ -294,8 +304,8 @@
                         topComunidade.innerHTML += `
                     <p>
                         ${i + 1}. 
-                        ${votosMedia[i].filme} 
-                        ★ ${Number(votosMedia[i].media).toFixed(1)}
+                        ${votosMediaOrdenado[i].filme} 
+                        ★ ${Number(votosMediaOrdenado[i].media).toFixed(1)}
                     </p>
                 `
 
@@ -308,15 +318,13 @@
 
                         data: {
 
-                            labels: votosMedia.map(function (f) {
-                                return f.filme
-                            }),
+                            labels: filmes,
 
                             datasets: [{
 
                                 label: "Comunidade",
 
-                                data: votosMedia.map(function (f) {
+                                data: filmesComunidade.map(function (f) {
                                     return Number(f.media) || 0
                                 }),
                                 
@@ -379,7 +387,7 @@
 
                                     label: "Comunidade",
 
-                                    data: votosMedia.map(function (f) {
+                                    data: filmesComunidade.map(function (f) {
                                         return f.media
                                     }),
 

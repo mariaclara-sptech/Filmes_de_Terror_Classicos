@@ -15,8 +15,8 @@ router.get("/pontuacao/:id", function (req, res) {
     quizController.obterPontuacao(req, res);
 });
 
-router.get("/ranking", function (req, res) {
-    quizController.obterRanking(req, res);
+router.get("/tentativas/:idUsuario", function(req, res) {
+    quizController.obterQuantidadeTentativas(req, res);
 });
 
 router.get("/:id", function (req, res) {
