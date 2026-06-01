@@ -1,1 +1,3 @@
 Este projeto foi desenvolvido como parte de um trabalho individual, com o objetivo de explorar e aplicar conhecimentos em desenvolvimento web. A proposta do site é apresentar conteúdos relacionados a filmes de terror clássico, incluindo informações, interações e sugestões para os usuários. Ao longo do desenvolvimento, foram utilizados HTML, CSS e JavaScript para criar uma experiência visual e funcional agradável. O projeto também contribuiu para o aprimoramento das minhas habilidades em organização, design e lógica de programação.
+<img width="502" height="497" alt="logo" src="https://github.com/user-attachments/assets/50ac945d-bac8-45a7-9301-87020546999e" />
+
